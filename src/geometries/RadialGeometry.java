@@ -1,7 +1,6 @@
 package geometries;
 
-import primitives.Point;
-import primitives.Vector;
+import primitives.*;
 
 public abstract class RadialGeometry implements Geometry{
 
