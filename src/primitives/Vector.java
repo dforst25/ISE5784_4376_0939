@@ -1,7 +1,13 @@
 package primitives;
 
 public class Vector extends Point{
-    //Ctor
+
+    /**
+     * Constructor
+     * @param x
+     * @param y
+     * @param z
+     */
     public Vector(double x, double y, double z)
     {
         super(x, y, z);
@@ -9,6 +15,11 @@ public class Vector extends Point{
             throw new IllegalArgumentException();
 
     }
+
+    /**
+     * Constructor
+     * @param xyz
+     */
     public Vector(Double3 xyz)
     {
         super(xyz);
@@ -24,14 +35,27 @@ public class Vector extends Point{
     @Override
     public String toString() { return "->" + super.toString(); }
 
+    /**
+     * sum of two vectors returns a vector
+     * @param p1
+     * @return
+     */
     public Vector add(Vector p1){
         return new Vector(xyz.add(p1.xyz));
     }
 
+    /**
+     * returns the square of the vector length (double)
+     * @return
+     */
     public double lengthSquared() {
         return xyz.d1* xyz.d1  +xyz.d2 * xyz.d2 + xyz.d3 * xyz.d3  ;
     }
 
+    /**
+     * returns the vector length (double)
+     * @return
+     */
     public double length() {
         return Math.sqrt(lengthSquared());
     }
