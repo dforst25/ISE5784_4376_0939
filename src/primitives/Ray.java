@@ -1,6 +1,5 @@
 package primitives;
 
-import java.util.Objects;
 
 public class Ray {
     private final Point head;
@@ -17,10 +16,7 @@ public class Ray {
         return (o instanceof Ray ray) && this.head.equals( ray.head) && this.direction.equals( ray.direction);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(head, direction);
-    }
+
 
     @Override
     public String toString() {

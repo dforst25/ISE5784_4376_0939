@@ -1,6 +1,5 @@
 package primitives;
 
-import java.util.Objects;
 
 /**
  *
@@ -25,13 +24,9 @@ public class Point {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        return  (o instanceof Point point) && Objects.equals(xyz, point.xyz);
+        return  (o instanceof Point point) && this.xyz.equals( point.xyz);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(xyz);
-    }
 
     @Override
     public String toString() {

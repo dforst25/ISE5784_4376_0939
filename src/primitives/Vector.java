@@ -5,14 +5,14 @@ public class Vector extends Point{
     public Vector(double x, double y, double z)
     {
         super(x, y, z);
-        if (xyz == Double3.ZERO)//why not use the length() function?
+        if (this.xyz.equals(Double3.ZERO))//why not use the length() function?
             throw new IllegalArgumentException();
 
     }
-    Vector(Double3 xyz)
+    public Vector(Double3 xyz)
     {
         super(xyz);
-        if (xyz == Double3.ZERO)//why not use the length() function?
+        if (this.xyz.equals(Double3.ZERO))//why not use the length() function?
             throw new IllegalArgumentException();
     }
 
