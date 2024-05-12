@@ -1,22 +1,41 @@
 package primitives;
 
 public class Vector extends Point{
-    public Vector(double x, double y, double z){
+    //Ctor
+    public Vector(double x, double y, double z)
+    {
         super(x, y, z);
+        if (xyz == Double3.ZERO)//why not use the length() function?
+            throw new IllegalArgumentException();
+
     }
-    public Vector(Double3 xyz){
+    Vector(Double3 xyz)
+    {
         super(xyz);
+        if (xyz == Double3.ZERO)//why not use the length() function?
+            throw new IllegalArgumentException();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        return (o instanceof Vector other) && super.equals(other);
+    }
+    @Override
+    public String toString() { return "->" + super.toString(); }
+
+    public Vector add(Vector p1){
+        return new Vector(xyz.add(p1.xyz));
+    }
 
     public double lengthSquared() {
-        return super.distanceSquared(ZERO);
+        return xyz.d1* xyz.d1  +xyz.d2 * xyz.d2 + xyz.d3 * xyz.d3  ;
     }
 
     public double length() {
-        return super.distance(ZERO);
+        return Math.sqrt(lengthSquared());
     }
-
+    public Vector scale(double scalar) {return new Vector(xyz.scale(scalar));}
     public double dotProduct(Vector v3) {
         double x0 = v3.xyz.d1;
         double y0 = v3.xyz.d2;
@@ -40,4 +59,5 @@ public class Vector extends Point{
     public Vector normalize() {
         return new Vector(xyz.reduce(length()));
     }
+
 }

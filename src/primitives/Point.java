@@ -1,26 +1,48 @@
 package primitives;
 
+import java.util.Objects;
+
 /**
  *
  */
 public class Point {
+    // Constants
     public static final Point ZERO = new Point(Double3.ZERO);
-    final Double3 xyz;
+
+    // Fields
+    protected Double3 xyz;
+
+    //ctors
     public Point(double x, double y, double z) {
 
         xyz = new Double3(x,y,z);
     }
-
-    public Point(Double3 xyz) {
+    Point(Double3 xyz) {
         this.xyz = xyz;
     }
 
-    public Vector subtract(Point p1){
-        return new Vector(xyz.subtract(p1.xyz));
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        return  (o instanceof Point point) && Objects.equals(xyz, point.xyz);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(xyz);
+    }
+
+    @Override
+    public String toString() {
+        return xyz + "";
     }
 
     public Point add(Vector v1) {
         return new Point(xyz.add(v1.xyz));
+    }
+    public Vector subtract(Point p1){
+        return new Vector(xyz.subtract(p1.xyz));
     }
 
     public double distanceSquared(Point p1) {
@@ -30,7 +52,7 @@ public class Point {
         double x = xyz.d1;
         double y = xyz.d2;
         double z = xyz.d3;
-        return Math.pow(x-x0,2) + Math.pow(y-y0,2) + Math.pow(z-z0,2);
+        return (x-x0)*(x-x0) + (y-y0)*(y-y0) + (z-z0)*(z-z0);
     }
 
     public double distance(Point p1) {
