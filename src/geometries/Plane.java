@@ -9,12 +9,12 @@ public class Plane implements Geometry {
 
     /**
      * Constructor
-     * @param x
-     * @param y
-     * @param z
+     * @param x first point on the given plane
+     * @param y second point on the given plane
+     * @param z third point on the given plane
      */
     public Plane(Point x, Point y, Point z) {
-        this.q = null;
+        this.q = x;
         this.normal = null;
     }
 

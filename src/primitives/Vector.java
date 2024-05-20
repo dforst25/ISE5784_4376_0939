@@ -38,7 +38,7 @@ public class Vector extends Point{
     /**
      * sum of two vectors returns a vector
      * @param p1
-     * @return
+     * @return vector
      */
     public Vector add(Vector p1){
         return new Vector(xyz.add(p1.xyz));
@@ -46,7 +46,7 @@ public class Vector extends Point{
 
     /**
      * returns the square of the vector length (double)
-     * @return
+     * @return double
      */
     public double lengthSquared() {
         return xyz.d1* xyz.d1  +xyz.d2 * xyz.d2 + xyz.d3 * xyz.d3  ;
@@ -54,11 +54,17 @@ public class Vector extends Point{
 
     /**
      * returns the vector length (double)
-     * @return
+     * @return double
      */
     public double length() {
         return Math.sqrt(lengthSquared());
     }
+
+    /**
+     * changes the size
+     * @param scalar
+     * @return vector
+     */
     public Vector scale(double scalar) {return new Vector(xyz.scale(scalar));}
     public double dotProduct(Vector v3) {
         double x0 = v3.xyz.d1;
@@ -69,7 +75,7 @@ public class Vector extends Point{
         double z = xyz.d3;
         return x * x0 + y * y0 + z * z0;
     }
-
+    
     public Vector crossProduct(Vector v3) {
         double x0 = v3.xyz.d1;
         double y0 = v3.xyz.d2;
