@@ -37,11 +37,11 @@ public class Vector extends Point{
 
     /**
      * sum of two vectors returns a vector
-     * @param p1
+     * @param vector
      * @return vector
      */
-    public Vector add(Vector p1){
-        return new Vector(xyz.add(p1.xyz));
+    public Vector add(Vector vector){
+        return new Vector(xyz.add(vector.xyz));
     }
 
     /**

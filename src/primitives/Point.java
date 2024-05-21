@@ -1,7 +1,6 @@
 package primitives;
 
 
-
 public class Point {
     // Constant
     public static final Point ZERO = new Point(Double3.ZERO);
@@ -11,18 +10,20 @@ public class Point {
 
     /**
      * Constructor
-     * @param x
-     * @param y
-     * @param z
+     *
+     * @param x double represents x axis
+     * @param y double represents y axis
+     * @param z double represents x axis
      */
     public Point(double x, double y, double z) {
 
-        xyz = new Double3(x,y,z);
+        xyz = new Double3(x, y, z);
     }
 
     /**
      * Constructor
-     * @param xyz
+     *
+     * @param xyz double3 represents x,y,z as axes
      */
     Point(Double3 xyz) {
         this.xyz = xyz;
@@ -32,7 +33,7 @@ public class Point {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        return  (o instanceof Point point) && this.xyz.equals( point.xyz);
+        return (o instanceof Point point) && this.xyz.equals(point.xyz);
     }
 
 
@@ -43,24 +44,27 @@ public class Point {
 
     /**
      * adds a vector to a point
-     * @param v1
+     *
+     * @param vector
      * @return point
      */
-    public Point add(Vector v1) {
-        return new Point(xyz.add(v1.xyz));
+    public Point add(Vector vector) {
+        return new Point(xyz.add(vector.xyz));
     }
 
     /**
      * subtracts two points
+     *
      * @param p1
      * @return vector
      */
-    public Vector subtract(Point p1){
+    public Vector subtract(Point p1) {
         return new Vector(xyz.subtract(p1.xyz));
     }
 
     /**
      * returns distanceSquared
+     *
      * @param p1
      * @return double
      */
@@ -71,11 +75,12 @@ public class Point {
         double x = xyz.d1;
         double y = xyz.d2;
         double z = xyz.d3;
-        return (x-x0)*(x-x0) + (y-y0)*(y-y0) + (z-z0)*(z-z0);
+        return (x - x0) * (x - x0) + (y - y0) * (y - y0) + (z - z0) * (z - z0);
     }
 
     /**
      * Returns the distance
+     *
      * @param p1
      * @return double
      */
