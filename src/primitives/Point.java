@@ -45,7 +45,7 @@ public class Point {
     /**
      * adds a vector to a point
      *
-     * @param vector
+     * @param vector represents a vector
      * @return point
      */
     public Point add(Vector vector) {
@@ -55,23 +55,23 @@ public class Point {
     /**
      * subtracts two points
      *
-     * @param p1
+     * @param p represents a point
      * @return vector
      */
-    public Vector subtract(Point p1) {
-        return new Vector(xyz.subtract(p1.xyz));
+    public Vector subtract(Point p) {
+        return new Vector(xyz.subtract(p.xyz));
     }
 
     /**
      * returns distanceSquared
      *
-     * @param p1
+     * @param p represents a point
      * @return double
      */
-    public double distanceSquared(Point p1) {
-        double x0 = p1.xyz.d1;
-        double y0 = p1.xyz.d2;
-        double z0 = p1.xyz.d3;
+    public double distanceSquared(Point p) {
+        double x0 = p.xyz.d1;
+        double y0 = p.xyz.d2;
+        double z0 = p.xyz.d3;
         double x = xyz.d1;
         double y = xyz.d2;
         double z = xyz.d3;
@@ -81,11 +81,11 @@ public class Point {
     /**
      * Returns the distance
      *
-     * @param p1
+     * @param p represents a point
      * @return double
      */
-    public double distance(Point p1) {
-        return Math.sqrt(distanceSquared(p1));
+    public double distance(Point p) {
+        return Math.sqrt(distanceSquared(p));
     }
 }
 

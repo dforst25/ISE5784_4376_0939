@@ -8,9 +8,8 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author David forst and moshe goodman
  */
 class VectorTest {
-    /**
-     * constructing vectors to use in the next tests
-     */
+
+    //constructing vectors to use in the next tests
     Vector v1 = new Vector(1, 2, 3);
     Vector v2 = new Vector(-2, -4, -6);
     Vector v3 = new Vector(0, 3, -2);
@@ -113,17 +112,15 @@ class VectorTest {
     void testCrossProduct() {
         // ============ Equivalence Partitions Tests ==============
 
-        /**
-         * asserts that a cross product between parallel between vector results in an error
-         */
-        assertThrows(IllegalArgumentException.class,
+
+         //asserts that a cross product between parallel between vector results in an error
+                 assertThrows(IllegalArgumentException.class,
                 ()-> v1.crossProduct(v2),
                 "ERROR: crossProduct() for parallel vectors does not throw an exception");
 
 
-        /**
-        * asserts that the length of the result vector is the multiplication of the two lengths of the original vectors
-        */
+
+        //asserts that the length of the result vector is the multiplication of the two lengths of the original vectors
         Vector vr = v1.crossProduct(v3);
         assertEquals(vr.length(), v1.length() * v3.length(),
                 0.0001,"ERROR: crossProduct() wrong result length");
