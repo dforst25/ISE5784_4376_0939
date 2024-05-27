@@ -10,7 +10,8 @@ class PlaneTest {
     Point  p2         = new Point(2, 4, 6);
     Point  p3         = new Point(2, 4, 5);
     Point p1PlusP2 = new Point(3,6,9);
-     void testConstructor() {
+    @Test
+    void testConstructor() {
 
         //validates that when two points are the same it will throw an exception
          assertThrows(IllegalArgumentException.class, ()->new Plane(p1,p1,p2),
@@ -28,12 +29,12 @@ class PlaneTest {
         Point pointOffThePlane = p1.add(pl1.getNormal());
 
         //validates that the normal is a unit vector
-        assertEquals(1,pl1.getNormal().length(),"Normal is not a unit vector");
+        assertEquals(1,pl1.getNormal().length(),0.00001,"Normal is not a unit vector");
 
         //  validates that the normal is orthogonal to the vectors contained on the plane
-        assertEquals(0,(p1.subtract(p2)).dotProduct(pl1.getNormal()),
+        assertEquals(0,(p1.subtract(p2)).dotProduct(pl1.getNormal()),0.0001,
                 "Normal is not orthogonal to plane");
-        assertEquals(0,(p1.subtract(p3)).dotProduct(pl1.getNormal()),
+        assertEquals(0,(p1.subtract(p3)).dotProduct(pl1.getNormal()),0.00001,
                 "Normal is not orthogonal to plane");
 
 

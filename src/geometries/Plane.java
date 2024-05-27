@@ -33,6 +33,8 @@ public class Plane implements Geometry {
 
     @Override
     public Vector getNormal(Point p) {
+        if(p.subtract(this.q).dotProduct(normal)!=0)
+            throw new IllegalArgumentException("point is not on the plane");
         return normal;
     }
     public Vector getNormal() {

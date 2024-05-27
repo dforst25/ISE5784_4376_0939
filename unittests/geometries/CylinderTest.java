@@ -32,8 +32,7 @@ class CylinderTest {
 
 
 
-            //validates that when point is off the plane program will throw an exception
-
+        //validates that when point is off the plane program will throw an exception
         assertThrows(IllegalArgumentException.class,()->c1.getNormal(pOnTheAxis),
                 "does not throw exception when point is not on the tube");
         assertThrows(IllegalArgumentException.class,()->c1.getNormal(pOutsideTheCylinder),
@@ -52,11 +51,12 @@ class CylinderTest {
                     "the normal of a sphere does not return a unit vector");
         assertEquals(1,c1.getNormal(pOriginalPoint).length(),0.0001,
                     "the normal of a sphere does not return a unit vector");
-        assertEquals(1,c1.getNormal(pOriginalPoint).length(),0.0001,
+        assertEquals(1,c1.getNormal(pOnTheAxisUpperSurface).length(),0.0001,
                     "the normal of a sphere does not return a unit vector");
-        assertEquals(1,c1.getNormal(pOriginalPoint).length(),0.0001,
+        assertEquals(1,c1.getNormal(pAtTheCornerBase).length(),0.0001,
                     "the normal of a sphere does not return a unit vector");
-
+        assertEquals(1,c1.getNormal(pAtTheCornerUpperBase).length(),0.0001,
+                "the normal of a sphere does not return a unit vector");
 
         }
 

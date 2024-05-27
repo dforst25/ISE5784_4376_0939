@@ -9,9 +9,9 @@ public class Cylinder extends Tube{
 
     /**
      *constructor
-     * @param radius
-     * @param axis
-     * @param height
+     * @param radius is the radius of the cylinder (double)
+     * @param axis is a ray that re[resents the axis of the cylinder
+     * @param height the height of the cylinder (double)
      */
     public Cylinder(double radius, Ray axis, double height) {
         super(radius, axis);
@@ -20,12 +20,13 @@ public class Cylinder extends Tube{
 
     /**
      * returns the normal of the cylinder
-     * @param p
-     * @return
+     * @param p is a point where the normal should be from
+     * @return the normal from point p
      */
     @Override
     public Vector getNormal(Point p) {
 
+        super.getNormal(p);
         return axis.getDir().normalize();
     }
 }

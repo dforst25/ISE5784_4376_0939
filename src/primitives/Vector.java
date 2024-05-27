@@ -4,9 +4,9 @@ public class Vector extends Point{
 
     /**
      * Constructor
-     * @param x
-     * @param y
-     * @param z
+     * @param x is for the x axis
+     * @param y  is for the y axis
+     * @param z  is for the z axis
      */
     public Vector(double x, double y, double z)
     {
@@ -18,13 +18,13 @@ public class Vector extends Point{
 
     /**
      * Constructor
-     * @param xyz
+     * @param xyz will be used for the point
      */
     public Vector(Double3 xyz)
     {
         super(xyz);
         if (this.xyz.equals(Double3.ZERO))//why not use the length() function?
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("cannot create vector 0");
     }
 
     @Override
