@@ -30,4 +30,27 @@ public class Ray {
                 ", direction=" + direction +
                 '}';
     }
+
+
+    //--------------------------------getters----------------------------
+
+    /**
+     * getter for the head, the starting point of the ray
+     *
+     * @return point of vector
+     */
+    public Point getHead() {
+        return head;
+    }
+
+    /**
+     * getter for direction,the direction vector of ray
+     *
+     * @return vector of ray
+     */
+    public Vector getDir() {
+        return direction;
+    }
+
 }
+

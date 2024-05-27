@@ -8,7 +8,7 @@ public abstract class RadialGeometry implements Geometry{
 
     /**
      * Constructor
-     * @param radius
+     * @param radius represents the radius of the radial geometry
      */
     public RadialGeometry(double radius) {
         this.radius = radius;
