@@ -28,7 +28,7 @@ class PlaneTest {
         Point pointOffThePlane = p1.add(pl1.getNormal());
 
         //validates that the normal is a unit vector
-        assertEquals(1,pl1.getNormal().length(),"Normal is not a unit vector");
+        assertEquals(1,pl1.getNormal().length(),0.00001,"Normal is not a unit vector");
 
         //  validates that the normal is orthogonal to the vectors contained on the plane
         assertEquals(0,(p1.subtract(p2)).dotProduct(pl1.getNormal()),
