@@ -8,8 +8,8 @@ public class Sphere extends RadialGeometry{
 
     /**
      * Constructor
-     * @param radius
-     * @param center
+     * @param radius represents the radius of the sphere
+     * @param center represents the center of the sphere
      */
     public Sphere(double radius, Point center) {
         super(radius);
@@ -18,5 +18,11 @@ public class Sphere extends RadialGeometry{
 
 
     @Override
-    public Vector getNormal(Point p) { return null;  }
+    public Vector getNormal(Point p) {
+        //v is a help vector for calculating if the point is on the sphere and also for calculating the normal
+        Vector v = p.subtract(this.center);
+        if(v.length() != this.radius)
+            throw new IllegalArgumentException("The point isn't correct!");
+        return v.normalize();
+    }
 }
