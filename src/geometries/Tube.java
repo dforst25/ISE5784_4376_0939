@@ -1,6 +1,8 @@
 package geometries;
 import primitives.*;
 
+import static primitives.Util.isZero;
+
 public class Tube extends RadialGeometry{
     protected final Ray axis;
 
@@ -22,11 +24,11 @@ public class Tube extends RadialGeometry{
     @Override
     public Vector getNormal(Point p) {
         //vector v is an help vector to calculate p - p0
-        Vector v = p.subtract(this.axis.getHead());
+        Vector hypotenuse = p.subtract(this.axis.getHead());
 
-        double t = this.axis.getDir().dotProduct(v);
+        double t = this.axis.getDir().dotProduct(hypotenuse);
         Point o = this.axis.getHead().add(this.axis.getDir().scale((t)));
-        if(p.subtract(o).length() != radius)
+        if(!isZero(p.subtract(o).length() - radius))
             throw new IllegalArgumentException("the point is not on the tube");
 
         return p.subtract(o).normalize();
