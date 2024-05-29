@@ -1,6 +1,8 @@
 package geometries;
 import primitives.*;
 
+import static primitives.Util.isZero;
+
 public class Tube extends RadialGeometry{
     protected final Ray axis;
 
@@ -25,6 +27,10 @@ public class Tube extends RadialGeometry{
         Vector v = p.subtract(this.axis.getHead());
 
         double t = this.axis.getDir().dotProduct(v);
+        if(isZero(t) && isZero(v.length()-this.radius))
+            return v.normalize();
+        else if(isZero(t))
+            throw new IllegalArgumentException("the point is not on the tube");
         Point o = this.axis.getHead().add(this.axis.getDir().scale((t)));
         if(p.subtract(o).length() != radius)
             throw new IllegalArgumentException("the point is not on the tube");
