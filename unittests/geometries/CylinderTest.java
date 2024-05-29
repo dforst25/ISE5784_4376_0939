@@ -12,11 +12,11 @@ class CylinderTest {
     @Test
     void testGetNormal() {
 
-        Cylinder c1 =new Cylinder(5,new Ray(new Point(1,1,1),new Vector(0,6, 8)),40);
+        Cylinder c1 =new Cylinder(10,new Ray(new Point(1,1,1),new Vector(0,6, 8)),40);
 
 // ============ Equivalence Partitions Tests ==============
         Point pOnTheSurface = new Point(1,15,3);
-        Point pOnTheBaseSurface = new Point(1,3,-0.5);
+        Point pOnTheBaseSurface = new Point(1,5,-2);
         Point pOnTheUpperSurface = new Point(1,33,27);
 
         //points for bva
