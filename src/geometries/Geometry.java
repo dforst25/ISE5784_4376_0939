@@ -1,9 +1,9 @@
 package geometries;
 import primitives.*;
 
-public interface Geometry {
+public interface Geometry extends  Intersectable{
     /**
-     * Constructor
+     *
      * @param p represents a point of yhe geometry
      * @return a vector representing the normal of the geometry at this point
      */

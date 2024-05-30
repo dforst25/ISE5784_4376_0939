@@ -34,5 +34,8 @@ class TubeTest {
 
 
     }
-
+    /** Test method for {@link geometries.Tube#findIntersections(primitives.Ray)}. */
+    @Test
+    public void testFindIntersections() {
+    }
 }

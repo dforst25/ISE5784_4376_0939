@@ -1,6 +1,8 @@
 package geometries;
 import primitives.*;
 
+import java.util.List;
+
 public class Sphere extends RadialGeometry{
 
     private final Point center;
@@ -28,5 +30,10 @@ public class Sphere extends RadialGeometry{
         if(v.length() != this.radius)
             throw new IllegalArgumentException("The point isn't correct!");
         return v.normalize();
+    }
+
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+        return null;
     }
 }

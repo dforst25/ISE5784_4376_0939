@@ -1,6 +1,9 @@
 package geometries;
 
 import primitives.Point;
+import primitives.Ray;
+
+import java.util.List;
 
 public class Triangle extends Polygon {
     /**
@@ -14,4 +17,8 @@ public class Triangle extends Polygon {
 
     }
 
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+        return null;
+    }
 }

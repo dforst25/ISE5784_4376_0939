@@ -2,6 +2,8 @@ package geometries;
 
 import primitives.*;
 
+import java.util.List;
+
 public class Plane implements Geometry {
     //Fields
     private final Point q;
@@ -39,5 +41,10 @@ public class Plane implements Geometry {
     }
     public Vector getNormal() {
         return normal;
+    }
+
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+        return null;
     }
 }

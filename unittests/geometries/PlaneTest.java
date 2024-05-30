@@ -1,7 +1,9 @@
 package geometries;
 
 import org.junit.jupiter.api.Test;
-import primitives.Point;
+import primitives.*;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -45,6 +47,58 @@ class PlaneTest {
 
 
     }
+    /** Test method for {@link geometries.Plane#findIntersections(primitives.Ray)}. */
+    @Test
+    public void testFindIntersections() {
+        Point p1 = new Point(1,2,3);
+        Point p2 = new Point(1,1,0);
+        Point p3 = new Point(1,0,1);
+        Plane pl = new Plane(p1,p2,p3 );
 
+
+        Ray rNoIntersection = new Ray (new Point(2,1,1),new Vector(1,2,3));
+        Ray rIntersection = new Ray (new Point(-1,1,1),new Vector(1,2,3));
+        var expIntersection= List.of(new Point(1,5,7));
+
+        Ray rParallelNotContained = new Ray (new Point(4,2,3),new Vector(0,3,4));
+        Ray rParallelContained = new Ray (new Point(1,1,1),new Vector(0,5,-8));
+
+        Ray rOrthogonalNoIntersection = new Ray (new Point(1.5,5,13),new Vector(5,0,0));
+        Ray rOrthogonalIntersectionAtHead = new Ray (new Point(1,1,1),new Vector(-8,0,0));
+        Ray rOrthogonalIntersection = new Ray (new Point(-1,10,-51),new Vector(1,0,0));
+        var expOrthogonalIntersection= List.of(new Point(1,10,-51));
+
+        Ray rHeadIntersection = new Ray (new Point(1,-43,1.65),new Vector(1,54,-5));
+        Ray rHeadIntersectionOnOriginalPoint = new Ray (new Point(1,2,3),new Vector(4,18,22));
+
+
+        // ============ Equivalence Partitions Tests ==============
+
+        //expects to return null when there is no intersection between the ray and the plane
+        assertNull(pl.findIntersections(rNoIntersection),"does not return null when there is no intersection");
+        //checks whether it returns the correct intersection between the ray and the plane
+        assertEquals(expIntersection,pl.findIntersections(rIntersection),
+                "does not return the correct point for intersection");
+
+        // =============== Boundary Values Tests ==================
+
+        //expects to return null when there is no intersection between the ray and the plane
+        assertNull(pl.findIntersections(rParallelNotContained),"does not return null when ");
+        //expects to return null when there is no intersection between the ray and the plane
+        assertNull(pl.findIntersections(rOrthogonalNoIntersection),"does not return null when ");
+        //expects to return null when there is no intersection between the ray and the plane
+        assertNull(pl.findIntersections(rOrthogonalIntersectionAtHead),"does not return null when ");
+        //expects to return null when there is no intersection between the ray and the plane
+        assertNull(pl.findIntersections(rHeadIntersection),"does not return null when ");
+        //expects to return null when there is no intersection between the ray and the plane
+        assertNull(pl.findIntersections(rHeadIntersectionOnOriginalPoint),"does not return null when ");
+        //checks whether it returns the correct intersection between the ray and the plane
+        assertEquals(expOrthogonalIntersection,pl.findIntersections(rOrthogonalIntersection),
+                "does not return the correct point for intersection");
+
+
+
+
+    }
 
 }
