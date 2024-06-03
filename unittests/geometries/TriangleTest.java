@@ -72,7 +72,7 @@ class TriangleTest {
         Vector v011 = new Vector(0,1,1);
         Vector vN011 = new Vector(0,-1,-1);
         Vector prll = new Vector(0,0,1);
-        Point goesThroughInterior = new Point(0,1,3);
+        Point goesThroughInterior = new Point(1,1,3);
         Ray rGoesThroughInterior = new Ray(goesThroughInterior.add(vN011),v011);
 
         Point goesThroughExteriorAcrossSide = new Point(4,1,3);

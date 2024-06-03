@@ -84,12 +84,12 @@ class SphereTest {
         Vector vRayOrthogonalToHead = new Vector(0, 45, -15);
 
 
-        var expInsideSphere = List.of(new Point(1,1,0));
+        var expInsideSphere = List.of(new Point(2,0,0));
         var expOnSphereInwards = List.of(new Point(1,1,0));
-        var expOnCenter = List.of(new Point(1.3333333333,0.6666666666,0.6666666666));
-        var expOutsideThroughCenter = List.of(new Point(1,1,0), new Point(1,-1,0));
+        var expOnCenter = List.of(new Point(4.0/3,2.0/3,2.0/3));
+        var expOutsideThroughCenter = List.of(new Point(1,-1,0), new Point(1,1,0));
         var expOnSphereInwardsThroughCenter = List.of(new Point(1,1,0));
-        var expInsideThroughCenter = List.of(new Point(1.70710678119,0.70710678119,0));
+        var expInsideThroughCenter = List.of(new Point(1.7071067811865475,0.7071067811865475,0));
 
 
 
