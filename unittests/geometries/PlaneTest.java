@@ -83,18 +83,23 @@ class PlaneTest {
         // =============== Boundary Values Tests ==================
 
         //expects to return null when there is no intersection between the ray and the plane
-        assertNull(pl.findIntersections(rParallelNotContained),"does not return null when ");
+        assertNull(pl.findIntersections(rParallelNotContained),
+                "does not return null when the ray is parallel to plane");
         //expects to return null when there is no intersection between the ray and the plane
-        assertNull(pl.findIntersections(rOrthogonalNoIntersection),"does not return null when ");
+        assertNull(pl.findIntersections(rOrthogonalNoIntersection),
+                "does not return null when orthogonal and starts after plane ");
         //expects to return null when there is no intersection between the ray and the plane
-        assertNull(pl.findIntersections(rOrthogonalIntersectionAtHead),"does not return null when ");
+        assertNull(pl.findIntersections(rOrthogonalIntersectionAtHead),
+                "does not return null when orthogonal and the rays head is on the plane");
         //expects to return null when there is no intersection between the ray and the plane
-        assertNull(pl.findIntersections(rHeadIntersection),"does not return null when ");
+        assertNull(pl.findIntersections(rHeadIntersection),
+                "does not return null when rays head starts on the plane");
         //expects to return null when there is no intersection between the ray and the plane
-        assertNull(pl.findIntersections(rHeadIntersectionOnOriginalPoint),"does not return null when ");
+        assertNull(pl.findIntersections(rHeadIntersectionOnOriginalPoint),
+                "does not return null when the head of the ray is the same point as the plane q point");
         //checks whether it returns the correct intersection between the ray and the plane
         assertEquals(expOrthogonalIntersection,pl.findIntersections(rOrthogonalIntersection),
-                "does not return the correct point for intersection");
+                "does not return the correct point for intersection when orthogonal and starts before plane");
 
 
 

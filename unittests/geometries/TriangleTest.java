@@ -67,6 +67,7 @@ class TriangleTest {
     /** Test method for {@link geometries.Triangle#findIntersections(primitives.Ray)}. */
     @Test
     public void testFindIntersections() {
+
         //on the plane z=3
         Triangle tr =new Triangle(new Point(1,2,3),new Point(4,0,3),new Point(-3,1,3));
         Vector v011 = new Vector(0,1,1);

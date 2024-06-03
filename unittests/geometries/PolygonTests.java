@@ -6,7 +6,10 @@ import org.junit.jupiter.api.Test;
 
 import geometries.Polygon;
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
+
+import java.util.List;
 
 /**
  * Testing Polygons
@@ -54,7 +57,7 @@ public class PolygonTests {
       assertThrows(IllegalArgumentException.class, //
                    () -> new Polygon(new Point(0, 0, 1), new Point(1, 0, 0), new Point(0, 1, 0),
                                      new Point(0, 0.5, 0.5)),
-                   "Constructed a polygon with vertix on a side");
+                   "Constructed a polygon with vertex on a side");
 
       // TC11: Last point = first point
       assertThrows(IllegalArgumentException.class, //
@@ -92,5 +95,64 @@ public class PolygonTests {
    /** Test method for {@link geometries.Polygon#findIntersections(primitives.Ray)}. */
    @Test
    public void testFindIntersections() {
+      //on the plane y=4
+      Polygon pentagon =new Polygon(new Point(1,4,3),
+              new Point(4,4,3),
+              new Point(2,4,-2),
+              new Point(-1,4,-1),
+              new Point(-1,4,2));
+      Vector v011 = new Vector(0,1,1);
+      Vector vN011 = new Vector(0,-1,-1);
+      Vector prll = new Vector(0,0,1);
+      Point goesThroughInterior = new Point(1,4,1);
+      Ray rGoesThroughInterior = new Ray(goesThroughInterior.add(vN011),v011);
+
+      Point goesThroughExteriorAcrossSide = new Point(4,4,6);
+      Ray rGoesThroughExteriorAcrossSide = new Ray(goesThroughExteriorAcrossSide.add(vN011),v011);
+
+      Point goesThroughExteriorAcrossVertex = new Point(1,4,6);
+      Ray rGoesThroughExteriorAcrossVertex = new Ray(goesThroughExteriorAcrossVertex.add(vN011),v011);
+
+
+      Point goesThroughSide = new Point(3,4,0.5);
+      Ray rGoesThroughSide = new Ray(goesThroughSide.add(vN011),v011);
+
+      Point goesThroughVertex = new Point(2,4,-2);
+      Ray rGoesThroughVertex = new Ray(goesThroughVertex.add(vN011),v011);
+
+      Point goesThroughContinuationOfSide = new Point(6,4,8);
+      Ray rGoesThroughContinuationOfSide = new Ray(goesThroughContinuationOfSide.add(vN011),v011);
+
+      Ray rNeverIntersectsPlane = new Ray(new Point(34,6,2), prll);
+
+      // ============ Equivalence Partitions Tests ==============
+      var exp = List.of(goesThroughInterior);
+      // TC01: intersects in the middle of the triangle
+      assertEquals(1,pentagon.findIntersections(rGoesThroughInterior).size(),
+              "the function does not return 1 intersection point");
+      assertEquals(exp,pentagon.findIntersections(rGoesThroughInterior),
+              "returns wrong point when the ray intersects the triangle");
+
+      // TC02: crosses the plane across a side of a triangle
+      assertNull(pentagon.findIntersections(rGoesThroughExteriorAcrossSide),
+              "does not return null when the intersection (with the plane) is outside across the side");
+      // TC03: crosses the plane across a vertex of a triangle
+      assertNull(pentagon.findIntersections(rGoesThroughExteriorAcrossVertex),
+              "does not return null when the intersection (with the plane) is outside across the vertex");
+
+      // =============== Boundary Values Tests ==================
+      // TC11:  crosses the plane on a side of a triangle
+      assertNull(pentagon.findIntersections(rGoesThroughSide),
+              "does not return null when the intersection (with the plane) is on the side");
+      // TC12:  crosses the plane on a vertex of a triangle
+      assertNull(pentagon.findIntersections(rGoesThroughVertex),
+              "does not return null when the intersection (with the plane) is on the vertex");
+      // TC13:  crosses the plane on the continuation of a side of a triangle
+      assertNull(pentagon.findIntersections(rGoesThroughContinuationOfSide),
+              "does not return null when intersection (with the plane) is  on the continuation of side");
+      //TC14: when the ray does not intersect the plane at all
+      assertNull(pentagon.findIntersections(rNeverIntersectsPlane),
+              "does not return null when there is no intersection with the plane");
+
    }
 }

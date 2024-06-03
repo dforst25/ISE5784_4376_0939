@@ -29,6 +29,7 @@ public class Cylinder extends Tube {
      */
     @Override
     public Vector getNormal(Point p) {
+        Point axisHead = axis.getHead();
         //if the points is on the head of the point
         if (isZero(p.distance(this.axis.getHead())))
             return axis.getDir().scale(-1);
