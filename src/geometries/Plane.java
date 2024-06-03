@@ -58,6 +58,6 @@ public class Plane implements Geometry {
         double t = temp / (normal.dotProduct(ray.getDir()));
         if(t<=0)
             return null;
-        return List.of(ray.getHead().add(ray.getDir().scale(t)));
+        return List.of(ray.getPoint(t));
     }
 }
