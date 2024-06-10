@@ -1,6 +1,8 @@
 package geometries;
 import primitives.*;
 
+import java.util.List;
+
 import static primitives.Util.isZero;
 
 public class Tube extends RadialGeometry{
@@ -24,17 +26,18 @@ public class Tube extends RadialGeometry{
     @Override
     public Vector getNormal(Point p) {
         //vector v is an help vector to calculate p - p0
-        Vector v = p.subtract(this.axis.getHead());
+        Vector hypotenuse = p.subtract(axis.getHead());
 
-        double t = this.axis.getDir().dotProduct(v);
-        if(isZero(t) && isZero(v.length()-this.radius))
-            return v.normalize();
-        else if(isZero(t))
-            throw new IllegalArgumentException("the point is not on the tube");
-        Point o = this.axis.getHead().add(this.axis.getDir().scale((t)));
-        if(p.subtract(o).length() != radius)
+        double t = axis.getDir().dotProduct(hypotenuse);
+        Point o = axis.getPoint(t);
+        if(!isZero(p.subtract(o).length() - radius))
             throw new IllegalArgumentException("the point is not on the tube");
 
         return p.subtract(o).normalize();
+    }
+
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+        return null;
     }
 }

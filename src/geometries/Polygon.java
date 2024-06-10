@@ -1,10 +1,12 @@
 package geometries;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import static primitives.Util.isZero;
 
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
 
 /**
@@ -82,4 +84,48 @@ public class Polygon implements Geometry {
    @Override
    public Vector getNormal(Point point) { return plane.getNormal(); }
 
+
+   @Override
+   public List<Point> findIntersections(Ray ray) {
+      if(plane.findIntersections(ray)==null)
+         return null;
+
+      List<Vector> sides= new LinkedList<>();
+      for(int i=0;i < size;++i)
+         sides.add(vertices.get(i).subtract(ray.getHead()));
+
+
+      List<Vector> ni= new LinkedList<>();
+      for(int i=0;i < size-1;++i)
+         ni.add(sides.get(i).crossProduct(sides.get(i+1)).normalize());
+      ni.add(sides.get(size-1).crossProduct(sides.get(0)).normalize());
+
+      Point P0 = ray.getHead();
+      Vector rDir =ray.getDir();
+
+      boolean allAreGreater=true;
+      for(int i=0;i<size;++i)
+      {
+         if(rDir.dotProduct(ni.get(i))<=0)
+         {
+            allAreGreater = false;
+            break;
+         }
+      }
+
+      boolean allAreSmaller=true;
+      for(int i=0;i<size;++i)
+      {
+         if(rDir.dotProduct(ni.get(i))>=0)
+         {
+            allAreSmaller = false;
+            break;
+         }
+      }
+
+      if(allAreGreater || allAreSmaller) {
+         return plane.findIntersections(ray);
+      }
+      return null;
+   }
 }

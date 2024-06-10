@@ -29,15 +29,13 @@ public class Cylinder extends Tube {
      */
     @Override
     public Vector getNormal(Point p) {
-
+        Point axisHead = axis.getHead();
         //if the points is on the head of the point
         if (isZero(p.distance(this.axis.getHead())))
             return axis.getDir().scale(-1);
 
         //vector v is  p - p0
         Vector v = p.subtract(this.axis.getHead());
-
-
 
         double t = this.axis.getDir().dotProduct(v);
 
@@ -49,18 +47,15 @@ public class Cylinder extends Tube {
 
         Point o = this.axis.getHead().add(this.axis.getDir().scale((t)));
 
-
         if (o.distance(axis.getHead()) < 0 || o.distance(axis.getHead()) > this.height || p.distance(o) > this.radius)
             throw new IllegalArgumentException("the point is not on the cylinder");
 
         else if ( o.distance(axis.getHead()) != this.height && p.distance(o) < this.radius)
             throw new IllegalArgumentException("the point is not on the cylinder");
 
-
         else if (isZero(o.distance(axis.getHead()) - this.height))
             return axis.getDir();
         else
             return super.getNormal(p);
-
     }
 }

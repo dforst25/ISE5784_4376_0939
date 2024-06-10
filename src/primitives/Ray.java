@@ -1,14 +1,16 @@
 package primitives;
 
 
+import static primitives.Util.isZero;
+
 public class Ray {
     private final Point head;
     private final Vector direction;
 
     /**
      * Constructor
-     * @param head
-     * @param direction
+     * @param head the head of the ray
+     * @param direction the vector of the ray normalized
      */
     public Ray(Point head, Vector direction) {
         this.head = head;
@@ -31,8 +33,20 @@ public class Ray {
                 '}';
     }
 
+    /**
+     * @param t is the ditance from the original point
+     * @return the new point on the ray at distance t
+     */
+    public Point getPoint( double t)
+    {
+        if(isZero(t))
+            return head;
+        return head.add(direction.scale(t));
+    }
 
-    //--------------------------------getters----------------------------
+
+
+            //--------------------------------getters----------------------------
 
     /**
      * getter for the head, the starting point of the ray
