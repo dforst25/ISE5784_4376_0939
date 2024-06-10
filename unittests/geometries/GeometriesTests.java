@@ -19,7 +19,7 @@ class GeometriesTests {
     Ray someIntersect = new Ray(new Point(3,0,0),new Vector(0,0,1));
     Ray intersectsAll = new Ray(new Point(1,2,0),new Vector(0,0,1));
     Ray noneIntersect = new Ray(new Point(20,0,0),new Vector(0,10,0));
-    Ray intersectsOne = new Ray(new Point(-1,0,0),new Vector(0,10,0));
+    Ray intersectsOne = new Ray(new Point(-1,0,0),new Vector(0,1,0));
 
 
     @Test
@@ -42,7 +42,8 @@ class GeometriesTests {
         //TC12: 1 intersection
         final var result12 = geometries.findIntersections(intersectsOne);
 
-        assertEquals(1, result12.size(), "Wrong number of points");
+        assertEquals(1, result12.size(),
+                "Wrong number of points there should only be one intersection");
 
         //TC13: all intersect
         final var result13 = geometries.findIntersections(intersectsAll)
