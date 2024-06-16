@@ -11,11 +11,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GeometriesTests {
     Plane pl = new Plane(new Point(1,2,8),new Point(6,2,8), new Point(-2,5,8));
-    Triangle tr1 = new Triangle(new Point(5,4,2), new Point(1,0,2),new Point(-2,5,2));
-    Triangle tr2 = new Triangle(new Point(5,4,5), new Point(1,0,5),new Point(-2,5,5));
+    Triangle triangle1 = new Triangle(new Point(5,4,2), new Point(1,0,2),new Point(-2,5,2));
+    Triangle triangle2 = new Triangle(new Point(5,4,5), new Point(1,0,5),new Point(-2,5,5));
     Sphere sphere = new Sphere(5.0,new Point(1,0,0));
     Geometries emptyList = new Geometries();
-    Geometries geometries = new Geometries(pl,tr1,tr2,sphere);
+    Geometries geometries = new Geometries(
+            pl,
+            triangle1,
+            triangle2,
+            sphere);
     Ray someIntersect = new Ray(new Point(3,0,0),new Vector(0,0,1));
     Ray intersectsAll = new Ray(new Point(1,2,0),new Vector(0,0,1));
     Ray noneIntersect = new Ray(new Point(20,0,0),new Vector(0,10,0));

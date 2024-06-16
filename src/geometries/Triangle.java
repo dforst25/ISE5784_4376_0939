@@ -20,11 +20,13 @@ public class Triangle extends Polygon {
 
     @Override
     public List<Point> findIntersections(Ray ray) {
-        if(plane.findIntersections(ray)==null)
+        List<Point> intersections = plane.findIntersections(ray);
+        if(intersections ==null)
             return null;
         Point P0 = ray.getHead();
         Vector rDir =ray.getDir();
         Vector V0 = vertices.get(0).subtract(P0);
+
         Vector V1 = vertices.get(1).subtract(P0);
         Vector V2 = vertices.get(2).subtract(P0);
         Vector n0 = V0.crossProduct(V1).normalize();
@@ -33,6 +35,6 @@ public class Triangle extends Polygon {
         if(!(rDir.dotProduct(n0)>0 && rDir.dotProduct(n1)>0 && rDir.dotProduct(n2)>0) &&
             !(rDir.dotProduct(n0)<0 && rDir.dotProduct(n1)<0 && rDir.dotProduct(n2)<0))
             return null;
-        return plane.findIntersections(ray);
+        return intersections;
     }
 }

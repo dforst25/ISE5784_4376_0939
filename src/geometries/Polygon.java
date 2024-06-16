@@ -87,7 +87,8 @@ public class Polygon implements Geometry {
 
    @Override
    public List<Point> findIntersections(Ray ray) {
-      if(plane.findIntersections(ray)==null)
+      List<Point> intersections = plane.findIntersections(ray);
+      if(intersections ==null)
          return null;
 
       List<Vector> sides= new LinkedList<>();
@@ -124,7 +125,7 @@ public class Polygon implements Geometry {
       }
 
       if(allAreGreater || allAreSmaller) {
-         return plane.findIntersections(ray);
+         return intersections;
       }
       return null;
    }
