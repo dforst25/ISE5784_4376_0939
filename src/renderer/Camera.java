@@ -24,7 +24,7 @@ public class Camera implements Cloneable{
      *
      * @return
      */
-    public Builder getBuilder()
+    public static Builder getBuilder()
     {
         return new Builder();
     }
@@ -163,6 +163,18 @@ public class Camera implements Cloneable{
      * @return the ray going from the camera location to the point on the view plane
      */
     public Ray constructRay(int nX, int nY, int j, int i) {
-        return null;
+        //pc represents center of the view plain
+        Point pC = location.add(vTo.scale(distance));
+        //Ratio (pixel width and height)
+        double rY = height/nY;
+        double rX = width/nX;
+        //center of pixel[i,j]
+        double yI = -(i - (nY-1)/2)*rY;
+        double xJ = (j - (nX-1)/2)*rX;
+        Point pIJ = pC.add(vRight.scale(xJ).add(vUp.scale(yI)));
+
+        //vector of the direction from camera to the center of the given pixel
+        Vector vIJ = pIJ.subtract(pC);
+        return new Ray(pC, vIJ);
     }
 }
