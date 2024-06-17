@@ -58,6 +58,14 @@ public class Camera implements Cloneable{
         return distance;
     }
 
+    @Override
+    public Camera clone() {
+        try {
+            return (Camera) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError(); // Can't happen
+        }
+    }
    //builder class
     public static class Builder {
         private final Camera camera = new Camera();
@@ -116,7 +124,7 @@ public class Camera implements Cloneable{
         *  sets all the fields of camera and ...
         * @return a new camera object
         */
-       public Camera build() throws CloneNotSupportedException {
+       public Camera build() {
            String renderMessage = "missing a resource for the renderer";
            if(camera.height==0)
                throw new MissingResourceException(
