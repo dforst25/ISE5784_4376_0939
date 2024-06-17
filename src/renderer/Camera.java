@@ -8,43 +8,46 @@ import static primitives.Util.isZero;
 
 
 public class Camera implements Cloneable{
+    /**the location of the camera*/
     private Point location;
+    /**right for the cameras perspective*/
     private Vector vRight;
+    /**upwards for the cameras perspective */
     private Vector vUp;
+    /**the direction in which the camera is pointed*/
     private Vector vTo;
+    /**the height of the view plane(actual units of the axis)*/
     private double height = 0.0;
+    /**the width of the view plane(actual units of the axis)*/
     private double width = 0.0;
+    /**the distance between the camera location and the view plane(actual units of the axis)*/
     private double distance = 0.0;
 
     /**
-     *
+     *default constructor used only by the builder
      */
     private Camera() {
     }
 
     /**
-     *
-     * @return
+     * @return a new builder object
      */
     public static Builder getBuilder()
     {
         return new Builder();
     }
 
-
     public Point getLocation() {
         return location;
     }
-
-    public Vector getvRight() {
+    public Vector getVRight() {
         return vRight;
     }
-
-    public Vector getvUp() {
+    public Vector getVUp() {
         return vUp;
     }
-
-    public Vector getvTo() {
+    /** */
+    public Vector getVTo() {
         return vTo;
     }
 
@@ -68,7 +71,10 @@ public class Camera implements Cloneable{
             throw new AssertionError(); // Can't happen
         }
     }
-   //builder class
+
+    /**
+     * builder class
+     */
     public static class Builder {
         private final Camera camera = new Camera();
 

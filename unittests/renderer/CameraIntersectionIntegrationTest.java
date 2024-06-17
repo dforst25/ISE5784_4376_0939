@@ -38,6 +38,7 @@ class CameraIntersectionIntegrationTest {
                 .setDirection(new Vector(0,0,-1), new Vector(0,1,0))
                 .setVpDistance(1).build();
 
+        //3x3 plane parallel to VP exp 9 intersections
         int sizePlaneIntersections = 0;
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
@@ -46,6 +47,7 @@ class CameraIntersectionIntegrationTest {
         assertEquals(9,sizePlaneIntersections,
                 "when the ray from camera intersects a plane the function does not find the intersection");
 
+        //3x3 plane in front of camera exp 9 intersections
         sizePlaneIntersections = 0;
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
@@ -54,6 +56,7 @@ class CameraIntersectionIntegrationTest {
         assertEquals(9,sizePlaneIntersections,
                 "when the ray from camera intersects a plane the function does not find the intersection");
 
+        //3x3 plane in front of camera exp 6 intersections
         sizePlaneIntersections = 0;
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
@@ -64,7 +67,7 @@ class CameraIntersectionIntegrationTest {
 
 
 
-
+        //3x3 sphere is in front of VP takes the spot of only one pixel exp 2 intersections
         int sizeSphereIntersections = 0;
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
@@ -73,6 +76,7 @@ class CameraIntersectionIntegrationTest {
         assertEquals(2,sizeSphereIntersections,
                 "when the ray from camera intersects a plane the function does not find the intersection");
 
+        //3x3 sphere is in front of VP covers the entire VP exp 19 intersections
         sizeSphereIntersections = 0;
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
@@ -81,6 +85,7 @@ class CameraIntersectionIntegrationTest {
         assertEquals(18,sizeSphereIntersections,
                 "when the ray from camera intersects a plane the function does not find the intersection");
 
+        //3x3 sphere exp 10 intersection (probably 8 of the "side and corner" rays are tangent to the sphere)
         sizeSphereIntersections = 0;
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
@@ -89,6 +94,7 @@ class CameraIntersectionIntegrationTest {
         assertEquals(10,sizeSphereIntersections,
                 "when the ray from camera intersects a plane the function does not find the intersection");
 
+        //3x3 camera location is inside the sphere exp 9 intersections
         sizeSphereIntersections = 0;
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
@@ -97,6 +103,7 @@ class CameraIntersectionIntegrationTest {
         assertEquals(9,sizeSphereIntersections,
                 "when the ray from camera intersects a plane the function does not find the intersection");
 
+        //3x3 sphere is behind the camera no intersections expected
         sizeSphereIntersections = 0;
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
@@ -105,6 +112,7 @@ class CameraIntersectionIntegrationTest {
         assertEquals(0,sizeSphereIntersections,
                 "when the ray from camera intersects a plane the function does not find the intersection");
 
+        //triangle is only over the center pixel exp 1 intersection
         int sizeTriangleIntersections = 0;
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
@@ -113,6 +121,7 @@ class CameraIntersectionIntegrationTest {
         assertEquals(1,sizeTriangleIntersections,
                 "when the ray from camera intersects a plane the function does not find the intersection");
 
+        //triangle covers 2 pixels exp 2 intersections
         sizeTriangleIntersections = 0;
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
