@@ -4,6 +4,8 @@ import primitives.*;
 
 import java.util.MissingResourceException;
 
+import static primitives.Util.isZero;
+
 
 public class Camera implements Cloneable{
     private Point location;
@@ -135,9 +137,7 @@ public class Camera implements Cloneable{
            if(camera.distance==0)
                throw new MissingResourceException(
                        renderMessage, "camera", "the distance from the camera to the view plane is missing");
-           if(camera.vRight == null)
-               throw new MissingResourceException(
-                       renderMessage, "camera","there isn't a vector indicating where the right of the camera is");
+
            if(camera.vTo == null)
                throw new MissingResourceException(
                        renderMessage, "camera","there isn't a vector indicating where the camera is pointed to");
@@ -169,12 +169,19 @@ public class Camera implements Cloneable{
         double rY = height/nY;
         double rX = width/nX;
         //center of pixel[i,j]
-        double yI = -(i - (nY-1)/2)*rY;
-        double xJ = (j - (nX-1)/2)*rX;
-        Point pIJ = pC.add(vRight.scale(xJ).add(vUp.scale(yI)));
+        double yI = -(i - (nY-1)/2.0)*rY;
+        double xJ = (j - (nX-1)/2.0)*rX;
+        Point pIJ;
+
+        pIJ  = pC;
+        if(!isZero(yI))
+            pIJ = pIJ.add(vUp.scale(yI));
+        if(!isZero(xJ))
+            pIJ = pIJ.add(vRight.scale(xJ));
+
 
         //vector of the direction from camera to the center of the given pixel
-        Vector vIJ = pIJ.subtract(pC);
-        return new Ray(pC, vIJ);
+        Vector vIJ = pIJ.subtract(location).normalize();
+        return new Ray(location, vIJ);
     }
 }

@@ -33,7 +33,7 @@ class CameraIntersectionIntegrationTest {
                 .setVpSize(3,3)
                 .setDirection(new Vector(0,0,-1), new Vector(0,1,0))
                 .setVpDistance(1).build();
-        Camera camera3 =new Camera.Builder().setLocation(new Point(0,0,1))
+        Camera camera3 =new Camera.Builder().setLocation(new Point(0,0,0))
                 .setVpSize(3,3)
                 .setDirection(new Vector(0,0,-1), new Vector(0,1,0))
                 .setVpDistance(1).build();
@@ -41,21 +41,24 @@ class CameraIntersectionIntegrationTest {
         int sizePlaneIntersections = 0;
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
-                sizePlaneIntersections += plane1.findIntersections(camera2.constructRay(3,3,i,j)).size();
+                if(plane1.findIntersections(camera2.constructRay(3,3,i,j)) != null)
+                    sizePlaneIntersections += plane1.findIntersections(camera2.constructRay(3,3,i,j)).size();
         assertEquals(9,sizePlaneIntersections,
                 "when the ray from camera intersects a plane the function does not find the intersection");
 
         sizePlaneIntersections = 0;
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
-                sizePlaneIntersections += plane2.findIntersections(camera2.constructRay(3,3,i,j)).size();
+                if(plane2.findIntersections(camera2.constructRay(3,3,i,j)) != null)
+                    sizePlaneIntersections += plane2.findIntersections(camera2.constructRay(3,3,i,j)).size();
         assertEquals(9,sizePlaneIntersections,
                 "when the ray from camera intersects a plane the function does not find the intersection");
 
         sizePlaneIntersections = 0;
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
-                sizePlaneIntersections += plane3.findIntersections(camera2.constructRay(3,3,i,j)).size();
+                if(plane3.findIntersections(camera2.constructRay(3,3,i,j)) != null)
+                    sizePlaneIntersections += plane3.findIntersections(camera2.constructRay(3,3,i,j)).size();
         assertEquals(6,sizePlaneIntersections,
                 "when the ray from camera intersects a plane the function does not find the intersection");
 
@@ -65,49 +68,56 @@ class CameraIntersectionIntegrationTest {
         int sizeSphereIntersections = 0;
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
-                sizeSphereIntersections += sphere1.findIntersections(camera1.constructRay(3,3,i,j)).size();
+                if(sphere1.findIntersections(camera1.constructRay(3,3,i,j)) != null)
+                    sizeSphereIntersections += sphere1.findIntersections(camera1.constructRay(3,3,i,j)).size();
         assertEquals(2,sizeSphereIntersections,
                 "when the ray from camera intersects a plane the function does not find the intersection");
 
         sizeSphereIntersections = 0;
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
-                sizeSphereIntersections += sphere2.findIntersections(camera2.constructRay(3,3,i,j)).size();
+                if(sphere2.findIntersections(camera2.constructRay(3,3,i,j)) != null)
+                    sizeSphereIntersections += sphere2.findIntersections(camera2.constructRay(3,3,i,j)).size();
         assertEquals(18,sizeSphereIntersections,
                 "when the ray from camera intersects a plane the function does not find the intersection");
 
         sizeSphereIntersections = 0;
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
-                sizeSphereIntersections += sphere3.findIntersections(camera2.constructRay(3,3,i,j)).size();
+                if(sphere3.findIntersections(camera2.constructRay(3,3,i,j)) != null)
+                    sizeSphereIntersections += sphere3.findIntersections(camera2.constructRay(3,3,i,j)).size();
         assertEquals(10,sizeSphereIntersections,
                 "when the ray from camera intersects a plane the function does not find the intersection");
 
         sizeSphereIntersections = 0;
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
-                sizeSphereIntersections += sphere4.findIntersections(camera2.constructRay(3,3,i,j)).size();
+                if(sphere4.findIntersections(camera2.constructRay(3,3,i,j)) != null)
+                    sizeSphereIntersections += sphere4.findIntersections(camera2.constructRay(3,3,i,j)).size();
         assertEquals(9,sizeSphereIntersections,
                 "when the ray from camera intersects a plane the function does not find the intersection");
 
         sizeSphereIntersections = 0;
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
-                sizeSphereIntersections += sphere5.findIntersections(camera3.constructRay(3,3,i,j)).size();
+                if(sphere5.findIntersections(camera3.constructRay(3,3,i,j)) != null)
+                    sizeSphereIntersections += sphere5.findIntersections(camera3.constructRay(3,3,i,j)).size();
         assertEquals(0,sizeSphereIntersections,
                 "when the ray from camera intersects a plane the function does not find the intersection");
 
         int sizeTriangleIntersections = 0;
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
-                sizeTriangleIntersections += triangle1.findIntersections(camera2.constructRay(3,3,1,0)).size();
+                if(triangle1.findIntersections(camera2.constructRay(3,3,i,j)) != null)
+                    sizeTriangleIntersections += triangle1.findIntersections(camera2.constructRay(3,3,i,j)).size();
         assertEquals(1,sizeTriangleIntersections,
                 "when the ray from camera intersects a plane the function does not find the intersection");
 
         sizeTriangleIntersections = 0;
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
-                sizeTriangleIntersections += triangle2.findIntersections(camera2.constructRay(3,3,1,0)).size();
+                if(triangle2.findIntersections(camera2.constructRay(3,3,i,j)) != null)
+                    sizeTriangleIntersections += triangle2.findIntersections(camera2.constructRay(3,3,i,j)).size();
         assertEquals(2,sizeTriangleIntersections,
                 "when the ray from camera intersects a plane the function does not find the intersection");
 
