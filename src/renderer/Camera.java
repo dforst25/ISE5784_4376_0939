@@ -81,7 +81,7 @@ public class Camera implements Cloneable{
        /**
         * sets the location field in the camera field
         * @param location is the location of  the camera
-        * @returns the builder object
+        * @return the builder object
         */
         public Builder setLocation(Point location) {
             camera.location = location;
@@ -180,6 +180,7 @@ public class Camera implements Cloneable{
         Point pIJ;
 
         pIJ  = pC;
+        //checks if the Yi, Xi aren't 0 in order to not get vectors (0, 0, 0)
         if(!isZero(yI))
             pIJ = pIJ.add(vUp.scale(yI));
         if(!isZero(xJ))
