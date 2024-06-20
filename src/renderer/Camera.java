@@ -8,21 +8,27 @@ import static primitives.Util.isZero;
 
 
 public class Camera implements Cloneable{
-    /**the location of the camera*/
-    private Point location;
-    /**right for the cameras perspective*/
-    private Vector vRight;
-    /**upwards for the cameras perspective */
-    private Vector vUp;
-    /**the direction in which the camera is pointed*/
-    private Vector vTo;
-    /**the height of the view plane(actual units of the axis)*/
-    private double height = 0.0;
-    /**the width of the view plane(actual units of the axis)*/
-    private double width = 0.0;
-    /**the distance between the camera location and the view plane(actual units of the axis)*/
-    private double distance = 0.0;
 
+    //----------------------fields---------------------
+
+    //the location of the camera
+    private Point location;
+    //right for the cameras perspective
+    private Vector vRight;
+    //upwards for the cameras perspective
+    private Vector vUp;
+    //the direction in which the camera is pointed
+    private Vector vTo;
+    //the height of the view plane(actual units of the axis)
+    private double height = 0.0;
+    //the width of the view plane(actual units of the axis)
+    private double width = 0.0;
+    //the distance between the camera location and the view plane(actual units of the axis)
+    private double distance = 0.0;
+    //
+    private ImageWriter imageWriter;
+    //
+    private RayTracerBase rayTracer;
     /**
      *default constructor used only by the builder
      */
@@ -126,6 +132,28 @@ public class Camera implements Cloneable{
             camera.distance = distance;
            return this;
        }
+
+        /**
+         * sets the imageWriter field in the camera field
+         * @param imageWriter is the ...
+         * @return the builder object
+         */
+        public Builder setImageWriter(ImageWriter imageWriter) {
+
+            camera.imageWriter = imageWriter;
+            return this;
+        }
+
+        /**
+         * sets the rayTracer field in the camera field
+         * @param rayTracer is the ...
+         * @return the builder object
+         */
+        public Builder setRayTracer(RayTracerBase rayTracer) {
+
+            camera.rayTracer = rayTracer;
+            return this;
+        }
 
        /**
         *  sets all the fields of camera and ...
