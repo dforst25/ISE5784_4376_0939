@@ -9,7 +9,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class CameraIntersectionIntegrationTest {
 
     @Test
-    void testConstructRay() {
+    void testCameraIntersection() {
+        Camera.Builder builder = new Camera.Builder()
+                .setVpSize(3,3)
+                .setDirection(new Vector(0,0,-1), new Vector(0,1,0))
+                .setVpDistance(1);
         Plane plane1 = new Plane(new Point(-1,-2,-3), new Vector(0,0,1));
         Plane plane2 = new Plane(new Point(-1,-2,-3), new Vector(1,1,11));
         Plane plane3 = new Plane(new Point(0,0,-5), new Vector(0,10,-1));
@@ -25,18 +29,10 @@ class CameraIntersectionIntegrationTest {
         Triangle triangle2 = new Triangle(new Point(0,20,-2),
                 new Point(1,-1,-2),
                 new Point(-1,-1,-2));
-        Camera camera1 =new Camera.Builder().setLocation(new Point(0,0,0))
-                .setVpSize(3,3)
-                .setDirection(new Vector(0,0,-1), new Vector(0,1,0))
-                .setVpDistance(1).build();
-        Camera camera2 =new Camera.Builder().setLocation(new Point(0,0,0.5))
-                .setVpSize(3,3)
-                .setDirection(new Vector(0,0,-1), new Vector(0,1,0))
-                .setVpDistance(1).build();
-        Camera camera3 =new Camera.Builder().setLocation(new Point(0,0,0))
-                .setVpSize(3,3)
-                .setDirection(new Vector(0,0,-1), new Vector(0,1,0))
-                .setVpDistance(1).build();
+
+        Camera camera1 =builder.setLocation(new Point(0,0,0)).build();
+        Camera camera2 =builder.setLocation(new Point(0,0,0.5)).build();
+        Camera camera3 =builder.setLocation(new Point(0,0,0)).build();
 
         //3x3 plane parallel to VP exp 9 intersections
         int sizePlaneIntersections = 0;

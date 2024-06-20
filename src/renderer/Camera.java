@@ -26,8 +26,7 @@ public class Camera implements Cloneable{
     /**
      *default constructor used only by the builder
      */
-    private Camera() {
-    }
+    private Camera() {}
 
     /**
      * @return a new builder object
