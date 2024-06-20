@@ -23,7 +23,7 @@ public class Vector extends Point{
     public Vector(Double3 xyz)
     {
         super(xyz);
-        if (this.xyz.equals(Double3.ZERO))//why not use the length() function?
+        if (this.xyz.equals(Double3.ZERO))
             throw new IllegalArgumentException("cannot create vector 0");
     }
 
