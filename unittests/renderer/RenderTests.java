@@ -18,7 +18,7 @@ public class RenderTests {
    /** Camera builder of the tests */
    private final Camera.Builder camera = Camera.getBuilder()
       .setRayTracer(new SimpleRayTracer(scene))
-      .setLocation(Point.ZERO).setDirection(new Point(0, 0, -1), Vector.Y)
+      .setLocation(Point.ZERO).setDirection(new Vector(0, 0, -1), new Vector(0,1,0))
       .setVpDistance(100)
       .setVpSize(500, 500);
 
@@ -26,7 +26,7 @@ public class RenderTests {
     * grid */
    @Test
    public void renderTwoColorTest() {
-      scene.geometries.add(new Sphere(new Point(0, 0, -100), 50d),
+      scene.geometries.add(new Sphere(50d,new Point(0, 0, -100)),
                            new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100)), // up
                            // left
                            new Triangle(new Point(-100, 0, -100), new Point(0, -100, -100),
@@ -37,12 +37,10 @@ public class RenderTests {
          .setBackground(new Color(75, 127, 90));
 
       // right
-      camera
-         .setImageWriter(new ImageWriter("base render test", 1000, 1000))
-         .build()
-         .renderImage()
-         .printGrid(100, new Color(YELLOW))
-         .writeToImage();
+      Camera buildedCamera = camera.setImageWriter(new ImageWriter("base render test", 1000, 1000)).build();
+      buildedCamera.renderImage();
+      buildedCamera.printGrid(100, new Color(YELLOW));
+      buildedCamera.writeToImage();
    }
 
    /** Test for XML based scene - for bonus */
@@ -53,12 +51,10 @@ public class RenderTests {
       // ...
       // NB: unit tests is not the correct place to put XML parsing code
 
-      camera
-         .setImageWriter(new ImageWriter("xml render test", 1000, 1000))
-         .build()
-         .renderImage()
-         .printGrid(100, new Color(YELLOW))
-         .writeToImage();
+      Camera buildedCamera = camera.setImageWriter(new ImageWriter("xml render test", 1000, 1000)).build();
+      buildedCamera.renderImage();
+      buildedCamera.printGrid(100, new Color(YELLOW));
+      buildedCamera.writeToImage();
    }
 }
 

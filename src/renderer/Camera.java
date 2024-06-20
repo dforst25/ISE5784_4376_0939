@@ -180,6 +180,12 @@ public class Camera implements Cloneable{
            if(camera.location == null)
                throw new MissingResourceException(
                        renderMessage, "camera","there isn't a point indicating where the right camera is located");
+           if(camera.imageWriter == null)
+               throw new MissingResourceException(
+                       renderMessage, "camera","there isn't a imageWriter");
+           if(camera.rayTracer == null)
+               throw new MissingResourceException(
+                       renderMessage, "camera","there isn't a ratTracer");
 
            camera.vRight = camera.vTo.crossProduct(camera.vUp).normalize();
 
@@ -218,4 +224,63 @@ public class Camera implements Cloneable{
         Vector vIJ = pIJ.subtract(location).normalize();
         return new Ray(location, vIJ);
     }
+
+    /**
+     *
+     */
+    public void renderImage(){
+
+        //goes through every pixel in view plane  and casts ray, meaning creates a ray for every pixel and sets the color
+        for (int row = 0; row < imageWriter.getNy(); row++) {
+            for (int column = 0; column < imageWriter.getNx(); column++) {
+                castRay(imageWriter.getNx(), imageWriter.getNy(), row, column);
+            }
+        }
+    }
+
+
+    /**
+     * Casts a ray from the camera through a pixel in the image, and writes the color of the intersection point to the
+     * corresponding pixel in the image.
+     *
+     * @param nX the number of pixels in the x-direction of the image
+     * @param nY the number of pixels in the y-direction of the image
+     * @param column the column number of the pixel to cast the ray through
+     * @param row the row number of the pixel to cast the ray through
+     */
+    private void castRay(int nX, int nY, int row, int column) {
+
+        //create the ray
+        Ray ray = constructRay(nX, nY, row, column);
+        //calculates the color of pixel in ray using traceRay method from Class TraceRay
+        Color pixelColor = rayTracer.traceRay(ray);
+        //writes the color of the pixel to image
+        imageWriter.writePixel(row, column, pixelColor);
+    }
+
+
+    /**
+     * Prints a grid on the camera's image using the specified interval and color.
+     *
+     * @param interval the interval between the grid lines
+     * @param color the color to use for the grid lines
+     */
+    public void printGrid(int interval, Color color){
+        /*nested loops that go through every pixel in grid and color it*/
+        for (int i=0; i< imageWriter.getNx(); i++)
+            for (int j=0; j<imageWriter.getNy() ; j+=interval)
+                imageWriter.writePixel(i,j,color);
+
+        for (int i=0; i< imageWriter.getNx(); i+= interval)
+            for (int j=0; j<imageWriter.getNy() ; j++)
+                imageWriter.writePixel(i,j,color);
+
+    }
+
+    /** Writes the camera's image to a file using the imageWriter.*/
+    public void writeToImage(){
+        imageWriter.writeToImage();
+    }
+
+
 }

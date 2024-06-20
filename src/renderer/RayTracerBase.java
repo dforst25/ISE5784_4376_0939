@@ -52,5 +52,7 @@ public abstract class RayTracerBase {
      * @param ray The `Ray` object representing the ray cast from the virtual camera.
      * @return The color of the closest object that the ray intersects with.
      */
-    public abstract Color traceRay(Ray ray);
+    public Color traceRay(Ray ray) {
+        return null;
+    }
 }
