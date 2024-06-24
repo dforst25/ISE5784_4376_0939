@@ -105,7 +105,7 @@ class CameraIntersectionIntegrationTest {
                 "when the ray from camera intersects a plane the function does not find the intersection");
 
         //3x3 sphere is behind the camera no intersections expected
-        sizeSphereIntersections = 0;
+        sizeSphereIntersections = 0; 
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
                 if (sphere5.findIntersections(camera3.constructRay(3, 3, i, j)) != null)

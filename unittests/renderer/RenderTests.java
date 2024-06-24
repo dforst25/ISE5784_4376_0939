@@ -49,7 +49,7 @@ public class RenderTests {
    public void basicRenderXml() {
       // enter XML file name and parse from XML file into scene object
       // using the code you added in appropriate packages
-      // ...
+      // .....
       // NB: unit tests is not the correct place to put XML parsing code
 
       Camera builtCamera = camera.setImageWriter(
