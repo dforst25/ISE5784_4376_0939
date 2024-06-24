@@ -1,7 +1,9 @@
 package primitives;
+import java.util.Comparator;
 import java.util.List;
 
 import static primitives.Util.isZero;
+
 
 public class Ray {
     private final Point head;
@@ -53,34 +55,8 @@ public class Ray {
      */
     public Point findClosestPoint(List<Point> points){
 
-        if (isZero(points.size()))
-            return null;
-
-        // Initialize the minimum distance to be the distance from head to the first point in the list
-        double minDistance = head.distance(points.getFirst());
-
-        // Initialize the closest point to be the first point in the list
-        Point closestPoint = points.getFirst();
-
-        // Iterate over the rest of the points and update the minimum distance and closest point as necessary
-        for (int index = 1; index < points.size(); index++) {
-            double distance = head.distance(points.get(index));
-            if (distance < minDistance) {
-                minDistance = distance;
-                closestPoint = points.get(index);
-            }
-        }
-        // Iterate over the rest of the points and update the minimum distance and closest point as necessary
-        for (Point point : points){
-            double distance = head.distance(point);
-            if (distance < minDistance) {
-                minDistance = distance;
-                closestPoint = point;
-            }
-        }
-
         // return the closest point
-        return closestPoint;
+        return  points.stream().min(Comparator.comparingDouble(p -> p.distance(head))).orElse(null);
 
     }
     //--------------------------------getters----------------------------

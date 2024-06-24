@@ -28,7 +28,7 @@ class RayTest {
     @Test
     void findClosestPoint() {
         // creating a new ray to check closest point for
-        Ray ray = new Ray(new Point(1,0,0),new Vector(0,0,1));
+        Ray ray = new Ray(new Point(1,0,0),new Vector(0,5,1));
 
         // ============ Equivalence Partitions Tests ==============
         //TC01- EP test, the closest point is in the middle of the list

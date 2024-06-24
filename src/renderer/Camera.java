@@ -25,9 +25,9 @@ public class Camera implements Cloneable{
     private double width = 0.0;
     //the distance between the camera location and the view plane(actual units of the axis)
     private double distance = 0.0;
-    //
+    //contains the entire matrix of the image
     private ImageWriter imageWriter;
-    //
+    //to get the color of a given ray within a scene
     private RayTracerBase rayTracer;
     /**
      *default constructor used only by the builder

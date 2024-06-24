@@ -29,10 +29,10 @@ public class AmbientLight {
      * A static constant representing a null ambient light with zero intensity and zero scaling factor.
      * This can be used as a default value or to disable ambient lighting entirely.
      */
-    static public final AmbientLight NONE = new AmbientLight(Color.BLACK, Double3.ZERO);
+    static public final AmbientLight NONE = new AmbientLight(Color.BLACK, 0);
     private final Color intensity;
 
-    //-----------------------------constructor-------------------------
+    //-----------------------------constructors-------------------------
 
     /**
      * Constructs a new `AmbientLight` with the specified intensity and scaling factor.
