@@ -3,6 +3,7 @@ package renderer;
 import geometries.*;
 import org.junit.jupiter.api.Test;
 import primitives.*;
+import scene.Scene;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,7 +12,8 @@ class CameraIntersectionIntegrationTest {
     @Test
     void testCameraIntersection() {
         Camera.Builder builder = new Camera.Builder()
-                .setVpSize(3,3)
+                .setRayTracer(new SimpleRayTracer(new Scene("Test")))
+                .setImageWriter(new ImageWriter("Test", 1, 1)).setVpSize(3,3)
                 .setDirection(new Vector(0,0,-1), new Vector(0,1,0))
                 .setVpDistance(1);
         Plane plane1 = new Plane(new Point(-1,-2,-3), new Vector(0,0,1));
