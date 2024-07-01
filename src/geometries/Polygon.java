@@ -2,6 +2,7 @@ package geometries;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static primitives.Util.isZero;
 
@@ -14,7 +15,7 @@ import primitives.Vector;
  * system
  * @author Dan
  */
-public class Polygon implements Geometry {
+public class Polygon extends Geometry {
    /** List of polygon's vertices */
    protected final List<Point> vertices;
    /** Associated plane in which the polygon lays */
@@ -89,6 +90,50 @@ public class Polygon implements Geometry {
    public List<Point> findIntersections(Ray ray) {
       List<Point> intersections = plane.findIntersections(ray);
       if(intersections ==null)
+         return null;
+
+      List<Vector> sides= new LinkedList<>();
+      for(int i=0;i < size;++i)
+         sides.add(vertices.get(i).subtract(ray.getHead()));
+
+
+      List<Vector> ni= new LinkedList<>();
+      for(int i=0;i < size-1;++i)
+         ni.add(sides.get(i).crossProduct(sides.get(i+1)).normalize());
+      ni.add(sides.get(size-1).crossProduct(sides.get(0)).normalize());
+
+      Point P0 = ray.getHead();
+      Vector rDir =ray.getDir();
+
+      boolean allAreGreater=true;
+      for(int i=0;i<size;++i)
+      {
+         if(rDir.dotProduct(ni.get(i))<=0)
+         {
+            allAreGreater = false;
+            break;
+         }
+      }
+
+      boolean allAreSmaller=true;
+      for(int i=0;i<size;++i)
+      {
+         if(rDir.dotProduct(ni.get(i))>=0)
+         {
+            allAreSmaller = false;
+            break;
+         }
+      }
+
+      if(allAreGreater || allAreSmaller) {
+         return intersections;
+      }
+      return null;
+   }
+   @Override
+   public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+      List<GeoPoint> intersections = plane.findIntersections(ray).stream().map(point->new GeoPoint(this,point)).collect(Collectors.toList());
+      if(intersections.isEmpty())
          return null;
 
       List<Vector> sides= new LinkedList<>();

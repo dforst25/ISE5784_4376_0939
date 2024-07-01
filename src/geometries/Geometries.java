@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Geometries implements Intersectable{
+public class Geometries extends Intersectable{
     final List<Intersectable> geometries = new LinkedList<>();
 
     public Geometries() {
@@ -34,5 +34,10 @@ public class Geometries implements Intersectable{
             }
         }
         return result;
+    }
+
+    @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+        return List.of();
     }
 }

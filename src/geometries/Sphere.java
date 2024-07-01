@@ -59,4 +59,27 @@ public class Sphere extends RadialGeometry{
                 .stream().sorted(Comparator.comparingDouble(p -> p.distance(P0)))
                 .toList();
     }
+    @Override
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+        Point P0 = ray.getHead();
+        if(P0.equals(center))
+            return List.of(new GeoPoint(this,   ray.getPoint(radius)));
+        Vector U = center.subtract(P0);
+        double Tm = ray.getDir().dotProduct(U);
+        double d = Math.sqrt(U.length()* U.length()-Tm*Tm);
+        if (d>=radius)
+            return null;
+        double Th = Math.sqrt(radius*radius-d*d);
+        double t1 = alignZero(Tm -Th) , t2 =alignZero( Tm +Th);
+        if((isZero(t1)|| t1<0)&& (isZero(t2) || t2<0))
+            return null;
+        if(isZero(t1) || t1<0)
+            return List.of(new GeoPoint(this,  ray.getPoint(t2)));
+        if(isZero(t2) || t2<0)
+            return List.of(new GeoPoint(this, ray.getPoint(t1)));
+
+        return List.of(new GeoPoint(this, ray.getPoint(t1)), new GeoPoint(this,  ray.getPoint(t2)))
+                .stream().sorted(Comparator.comparingDouble(p -> p.point.distance(P0)))
+                .toList();
+    }
 }

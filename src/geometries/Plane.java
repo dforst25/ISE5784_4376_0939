@@ -6,7 +6,7 @@ import java.util.List;
 
 import static primitives.Util.isZero;
 
-public class Plane implements Geometry {
+public class Plane extends Geometry {
     //Fields
     private final Point q;
     private final Vector normal;
@@ -59,5 +59,20 @@ public class Plane implements Geometry {
         if(t<=0)
             return null;
         return List.of(ray.getPoint(t));
+    }
+    @Override
+    public  List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+        if(q.equals(ray.getHead()))
+            return null;
+        if(isZero(ray.getDir().dotProduct(normal))) {
+            if (!isZero(ray.getHead().subtract(q).dotProduct(normal)))
+                return null;
+            //else it is contained in the plane and i don't know what i'm meant to do
+        }
+        double temp = normal.dotProduct(q.subtract(ray.getHead()));
+        double t = temp / (normal.dotProduct(ray.getDir()));
+        if(t<=0)
+            return null;
+        return List.of(new GeoPoint(this, ray.getPoint(t)));
     }
 }

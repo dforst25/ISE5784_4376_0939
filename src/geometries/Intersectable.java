@@ -4,14 +4,45 @@ import primitives.*;
 
 import java.util.List;
 
-public interface Intersectable {
+public abstract class Intersectable {
 
     /**
      *
      * @param ray is the ray that intersects the geometry
      * @return a list of the point that the ray intersects the geometrical object
      */
-    List<Point> findIntersections(Ray ray);
+    public abstract List<Point> findIntersections(Ray ray);
 
+    /**
+     *
+     */
+    public static class GeoPoint {
+        public Geometry geometry;
+        public Point point;
+
+        public GeoPoint(Geometry geometry, Point point) {
+            this.geometry = geometry;
+            this.point = point;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            return (obj instanceof GeoPoint geoPoint)
+                    && this.geometry.equals(((GeoPoint)obj).geometry)
+                    && this.point.equals(((GeoPoint)obj).point);
+
+        }
+
+        @Override
+        public String toString() {
+            return "geometry:\n " + geometry.toString() + "\npoint\n" + point.toString() ;
+        }
+    }
+    public List<GeoPoint> findGeoIntersections(Ray ray)
+    {
+        return findGeoIntersectionsHelper(ray);
+    }
+    protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
 
 }

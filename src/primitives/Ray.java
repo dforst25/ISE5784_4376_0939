@@ -1,6 +1,7 @@
 package primitives;
 import java.util.Comparator;
 import java.util.List;
+import geometries.Intersectable.GeoPoint;
 
 import static primitives.Util.isZero;
 
@@ -57,6 +58,12 @@ public class Ray {
 
         // return the closest point
         return  points.stream().min(Comparator.comparingDouble(p -> p.distance(head))).orElse(null);
+
+    }
+    public GeoPoint findClosestGeoPoint(List<GeoPoint> geoPoints){
+
+        // return the closest point
+        return  geoPoints.stream().min(Comparator.comparingDouble(p -> p.point.distance(head))).orElse(null);
 
     }
     //--------------------------------getters----------------------------
