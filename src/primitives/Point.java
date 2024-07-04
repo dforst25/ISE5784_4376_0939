@@ -21,6 +21,7 @@ public class Point {
 
     /**
      * Constructor
+     *
      * @param xyz double3 represents x,y,z as axes
      */
     Point(Double3 xyz) {
@@ -42,6 +43,7 @@ public class Point {
 
     /**
      * adds a vector to a point
+     *
      * @param vector represents a vector
      * @return point
      */
@@ -51,6 +53,7 @@ public class Point {
 
     /**
      * subtracts two points
+     *
      * @param p represents a point
      * @return vector
      */
@@ -76,6 +79,7 @@ public class Point {
 
     /**
      * Returns the distance between two points
+     *
      * @param p represents a point
      * @return double
      */

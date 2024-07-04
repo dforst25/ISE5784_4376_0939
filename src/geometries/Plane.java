@@ -13,6 +13,7 @@ public class Plane extends Geometry {
 
     /**
      * Constructor
+     *
      * @param x first point on the given plane
      * @param y second point on the given plane
      * @param z third point on the given plane
@@ -27,7 +28,8 @@ public class Plane extends Geometry {
 
     /**
      * Constructor
-     * @param q represents some point at the plane
+     *
+     * @param q      represents some point at the plane
      * @param normal represents the normal of the plane
      */
     public Plane(Point q, Vector normal) {
@@ -37,41 +39,43 @@ public class Plane extends Geometry {
 
     @Override
     public Vector getNormal(Point p) {
-        if(p.subtract(this.q).dotProduct(normal)!=0)
+        if (p.subtract(this.q).dotProduct(normal) != 0)
             throw new IllegalArgumentException("point is not on the plane");
         return normal;
     }
+
     public Vector getNormal() {
         return normal;
     }
 
     @Override
     public List<Point> findIntersections(Ray ray) {
-        if(q.equals(ray.getHead()))
+        if (q.equals(ray.getHead()))
             return null;
-        if(isZero(ray.getDir().dotProduct(normal))) {
+        if (isZero(ray.getDir().dotProduct(normal))) {
             if (!isZero(ray.getHead().subtract(q).dotProduct(normal)))
                 return null;
             //else it is contained in the plane and i don't know what i'm meant to do
         }
         double temp = normal.dotProduct(q.subtract(ray.getHead()));
         double t = temp / (normal.dotProduct(ray.getDir()));
-        if(t<=0)
+        if (t <= 0)
             return null;
         return List.of(ray.getPoint(t));
     }
+
     @Override
-    public  List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
-        if(q.equals(ray.getHead()))
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+        if (q.equals(ray.getHead()))
             return null;
-        if(isZero(ray.getDir().dotProduct(normal))) {
+        if (isZero(ray.getDir().dotProduct(normal))) {
             if (!isZero(ray.getHead().subtract(q).dotProduct(normal)))
                 return null;
             //else it is contained in the plane and i don't know what i'm meant to do
         }
         double temp = normal.dotProduct(q.subtract(ray.getHead()));
         double t = temp / (normal.dotProduct(ray.getDir()));
-        if(t<=0)
+        if (t <= 0)
             return null;
         return List.of(new GeoPoint(this, ray.getPoint(t)));
     }

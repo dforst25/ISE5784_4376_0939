@@ -4,18 +4,18 @@ import primitives.Color;
 import primitives.Double3;
 
 /**
- * The `AmbientLight` class represents ambient lighting in a 3D scene, which is a type of
- * non-directional light that is applied uniformly to all objects in the scene regardless of
- * their position or orientation. Ambient lighting helps to provide a base level of illumination
- * in a scene and can be used to simulate the effect of indirect or diffused light.
- *
- * An ambient light is defined by an intensity value, which determines how much light is emitted,
- * and a scaling factor, which determines how much of that light is applied to each object in the
- * scene. The intensity can be specified as either a single scalar value or a vector of RGB values,
- * while the scaling factor can be specified as either a single scalar or a vector of scaling factors
- * for each color channel.
- *
- * The `AmbientLight` class provides a static constant `NONE`, which represents a null ambient light
+ * * The `AmbientLight` class represents ambient lighting in a 3D scene, which is a type of
+ * * non-directional light that is applied uniformly to all objects in the scene regardless of
+ * * their position or orientation. Ambient lighting helps to provide a base level of illumination
+ * * in a scene and can be used to simulate the effect of indirect or diffused light.
+ * *
+ * * An ambient light is defined by an intensity value, which determines how much light is emitted,
+ * * and a scaling factor, which determines how much of that light is applied to each object in the
+ * * scene. The intensity can be specified as either a single scalar value or a vector of RGB values,
+ * * while the scaling factor can be specified as either a single scalar or a vector of scaling factors
+ * * for each color channel.
+ * *
+ * * The `AmbientLight` class provides a static constant `NONE`, which represents a null ambient light
  * that has zero intensity and zero scaling factor. This can be used as a default value or to disable
  * ambient lighting entirely.
  *

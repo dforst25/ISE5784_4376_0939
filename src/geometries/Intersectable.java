@@ -7,7 +7,6 @@ import java.util.List;
 public abstract class Intersectable {
 
     /**
-     *
      * @param ray is the ray that intersects the geometry
      * @return a list of the point that the ray intersects the geometrical object
      */
@@ -29,20 +28,21 @@ public abstract class Intersectable {
         public boolean equals(Object obj) {
             if (this == obj) return true;
             return (obj instanceof GeoPoint geoPoint)
-                    && this.geometry.equals(((GeoPoint)obj).geometry)
-                    && this.point.equals(((GeoPoint)obj).point);
+                    && this.geometry.equals(((GeoPoint) obj).geometry)
+                    && this.point.equals(((GeoPoint) obj).point);
 
         }
 
         @Override
         public String toString() {
-            return "geometry:\n " + geometry.toString() + "\npoint\n" + point.toString() ;
+            return "geometry:\n " + geometry.toString() + "\npoint\n" + point.toString();
         }
     }
-    public List<GeoPoint> findGeoIntersections(Ray ray)
-    {
+
+    public List<GeoPoint> findGeoIntersections(Ray ray) {
         return findGeoIntersectionsHelper(ray);
     }
+
     protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
 
 }

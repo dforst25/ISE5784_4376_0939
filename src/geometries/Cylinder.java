@@ -50,7 +50,7 @@ public class Cylinder extends Tube {
         if (o.distance(axis.getHead()) < 0 || o.distance(axis.getHead()) > this.height || p.distance(o) > this.radius)
             throw new IllegalArgumentException("the point is not on the cylinder");
 
-        else if ( o.distance(axis.getHead()) != this.height && p.distance(o) < this.radius)
+        else if (o.distance(axis.getHead()) != this.height && p.distance(o) < this.radius)
             throw new IllegalArgumentException("the point is not on the cylinder");
 
         else if (isZero(o.distance(axis.getHead()) - this.height))

@@ -10,13 +10,13 @@ import scene.Scene;
  * It provides a basic framework for rendering a 3D scene by casting rays from a virtual camera
  * and computing the color of each pixel based on the intersection of those rays with objects
  * in the scene.
- *
+ * <p>
  * To use `RayTracerBase`, you need to implement the `traceRay()` method, which takes a ray
  * as input and returns the color of the closest object that the ray intersects with. The
  * `traceRay()` method should use the `Scene` object provided in the constructor to determine
  * the geometry and materials of the objects in the scene, and should recursively trace secondary
  * rays to compute shadows, reflections, and other lighting effects.
- *
+ * <p>
  * The `RayTracerBase` class also provides a protected `scene` field that can be accessed by
  * subclasses to obtain information about the scene, such as the camera position and orientation
  * and the list of objects in the scene.

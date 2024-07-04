@@ -10,20 +10,20 @@ import java.util.Comparator;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GeometriesTests {
-    Plane pl = new Plane(new Point(1,2,8),new Point(6,2,8), new Point(-2,5,8));
-    Triangle triangle1 = new Triangle(new Point(5,4,2), new Point(1,0,2),new Point(-2,5,2));
-    Triangle triangle2 = new Triangle(new Point(5,4,5), new Point(1,0,5),new Point(-2,5,5));
-    Sphere sphere = new Sphere(5.0,new Point(1,0,0));
+    Plane pl = new Plane(new Point(1, 2, 8), new Point(6, 2, 8), new Point(-2, 5, 8));
+    Triangle triangle1 = new Triangle(new Point(5, 4, 2), new Point(1, 0, 2), new Point(-2, 5, 2));
+    Triangle triangle2 = new Triangle(new Point(5, 4, 5), new Point(1, 0, 5), new Point(-2, 5, 5));
+    Sphere sphere = new Sphere(5.0, new Point(1, 0, 0));
     Geometries emptyList = new Geometries();
     Geometries geometries = new Geometries(
             pl,
             triangle1,
             triangle2,
             sphere);
-    Ray someIntersect = new Ray(new Point(3,0,0),new Vector(0,0,1));
-    Ray intersectsAll = new Ray(new Point(1,2,0),new Vector(0,0,1));
-    Ray noneIntersect = new Ray(new Point(20,0,0),new Vector(0,10,0));
-    Ray intersectsOne = new Ray(new Point(-1,0,0),new Vector(0,1,0));
+    Ray someIntersect = new Ray(new Point(3, 0, 0), new Vector(0, 0, 1));
+    Ray intersectsAll = new Ray(new Point(1, 2, 0), new Vector(0, 0, 1));
+    Ray noneIntersect = new Ray(new Point(20, 0, 0), new Vector(0, 10, 0));
+    Ray intersectsOne = new Ray(new Point(-1, 0, 0), new Vector(0, 1, 0));
 
 
     @Test
@@ -41,7 +41,7 @@ class GeometriesTests {
 
         // =============== Boundary Values Tests ==================
         //TC11: no intersections
-        assertNull( geometries.findIntersections(noneIntersect), "Wrong number of points");
+        assertNull(geometries.findIntersections(noneIntersect), "Wrong number of points");
 
         //TC12: 1 intersection
         final var result12 = geometries.findIntersections(intersectsOne);
@@ -56,7 +56,7 @@ class GeometriesTests {
         assertEquals(4, result13.size(), "Wrong number of points");
 
         //TC14: empty collection
-        assertNull( emptyList.findIntersections(intersectsOne),
+        assertNull(emptyList.findIntersections(intersectsOne),
                 "doesn't return null when the collection is empty");
-        }
+    }
 }

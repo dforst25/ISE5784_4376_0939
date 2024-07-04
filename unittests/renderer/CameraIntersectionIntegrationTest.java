@@ -16,6 +16,7 @@ class CameraIntersectionIntegrationTest {
                     sizeIntersections += intersectable.findIntersections(camera.constructRay(3, 3, i, j)).size();
         return sizeIntersections;
     }
+
     Camera.Builder builder = new Camera.Builder()
             .setRayTracer(new SimpleRayTracer(new Scene("Test")))
             .setImageWriter(new ImageWriter("Test", 1, 1)).setVpSize(3, 3)
@@ -49,7 +50,6 @@ class CameraIntersectionIntegrationTest {
     }
 
 
-
     @Test
     void testCameraIntersectionSphere() {
         Camera camera1 = builder.setLocation(new Point(0, 0, 0)).build();
@@ -68,22 +68,22 @@ class CameraIntersectionIntegrationTest {
                 "when the ray from camera intersects a plane the function does not find the intersection");
 
         //3x3 sphere is in front of VP covers the entire VP exp 19 intersections
-        sizeSphereIntersections =  getSizePlaneIntersections(sphere2, camera2);
+        sizeSphereIntersections = getSizePlaneIntersections(sphere2, camera2);
         assertEquals(18, sizeSphereIntersections,
                 "when the ray from camera intersects a plane the function does not find the intersection");
 
         //3x3 sphere exp 10 intersection (probably 8 of the "side and corner" rays are tangent to the sphere)
-        sizeSphereIntersections =  getSizePlaneIntersections(sphere3, camera2);
+        sizeSphereIntersections = getSizePlaneIntersections(sphere3, camera2);
         assertEquals(10, sizeSphereIntersections,
                 "when the ray from camera intersects a plane the function does not find the intersection");
 
         //3x3 camera location is inside the sphere exp 9 intersections
-        sizeSphereIntersections =  getSizePlaneIntersections(sphere4, camera2);
+        sizeSphereIntersections = getSizePlaneIntersections(sphere4, camera2);
         assertEquals(9, sizeSphereIntersections,
                 "when the ray from camera intersects a plane the function does not find the intersection");
 
         //3x3 sphere is behind the camera no intersections expected
-        sizeSphereIntersections =  getSizePlaneIntersections(sphere5, camera3);
+        sizeSphereIntersections = getSizePlaneIntersections(sphere5, camera3);
         assertEquals(0, sizeSphereIntersections,
                 "when the ray from camera intersects a plane the function does not find the intersection");
 
@@ -102,7 +102,7 @@ class CameraIntersectionIntegrationTest {
                 new Point(-1, -1, -2));
 
         //triangle is only over the center pixel exp 1 intersection
-        int sizeTriangleIntersections =  getSizePlaneIntersections(triangle1, camera2);
+        int sizeTriangleIntersections = getSizePlaneIntersections(triangle1, camera2);
         assertEquals(1, sizeTriangleIntersections,
                 "when the ray from camera intersects a plane the function does not find the intersection");
 

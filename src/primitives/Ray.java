@@ -1,6 +1,8 @@
 package primitives;
+
 import java.util.Comparator;
 import java.util.List;
+
 import geometries.Intersectable.GeoPoint;
 
 import static primitives.Util.isZero;
@@ -12,20 +14,21 @@ public class Ray {
 
     /**
      * Constructor
-     * @param head the head of the ray
+     *
+     * @param head      the head of the ray
      * @param direction the vector of the ray normalized
      */
     public Ray(Point head, Vector direction) {
         this.head = head;
         this.direction = direction.normalize();
     }
+
     //----------------------------------OverrideFunctions----------------------------------
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        return (o instanceof Ray ray) && this.head.equals( ray.head) && this.direction.equals( ray.direction);
+        return (o instanceof Ray ray) && this.head.equals(ray.head) && this.direction.equals(ray.direction);
     }
-
 
 
     @Override
@@ -36,13 +39,13 @@ public class Ray {
                 '}';
     }
     //----------------------functions------------------------------------
+
     /**
      * @param t is the distance from the original point
      * @return the new point on the ray at distance t
      */
-    public Point getPoint( double t)
-    {
-        if(isZero(t))
+    public Point getPoint(double t) {
+        if (isZero(t))
             return head;
         return head.add(direction.scale(t));
     }
@@ -52,18 +55,19 @@ public class Ray {
      *
      * @param points A list of points to search from
      * @return The closest point to the given point
-     *         If the list is empty, returns null.
+     * If the list is empty, returns null.
      */
-    public Point findClosestPoint(List<Point> points){
+    public Point findClosestPoint(List<Point> points) {
 
         // return the closest point
-        return  points.stream().min(Comparator.comparingDouble(p -> p.distance(head))).orElse(null);
+        return points.stream().min(Comparator.comparingDouble(p -> p.distance(head))).orElse(null);
 
     }
-    public GeoPoint findClosestGeoPoint(List<GeoPoint> geoPoints){
+
+    public GeoPoint findClosestGeoPoint(List<GeoPoint> geoPoints) {
 
         // return the closest point
-        return  geoPoints.stream().min(Comparator.comparingDouble(p -> p.point.distance(head))).orElse(null);
+        return geoPoints.stream().min(Comparator.comparingDouble(p -> p.point.distance(head))).orElse(null);
 
     }
     //--------------------------------getters----------------------------

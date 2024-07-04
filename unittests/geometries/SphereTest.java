@@ -10,9 +10,9 @@ import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SphereTest {
-    primitives.Point p1 = new primitives.Point(3,0,0);
-    primitives.Point p2 = new primitives.Point(2,0,0);
-    Sphere s1 = new Sphere(2.0,new primitives.Point(0,0,0));
+    primitives.Point p1 = new primitives.Point(3, 0, 0);
+    primitives.Point p2 = new primitives.Point(2, 0, 0);
+    Sphere s1 = new Sphere(2.0, new primitives.Point(0, 0, 0));
 
 
     /**
@@ -22,15 +22,13 @@ class SphereTest {
     void testGetNormal() {
 
         //validates that when point is off the plane program will throw an exception
-        assertThrows(IllegalArgumentException.class,()->s1.getNormal(p1),
+        assertThrows(IllegalArgumentException.class, () -> s1.getNormal(p1),
                 "does not throw exception when point is not on the sphere ");
 
 
         //validates that the normal function returns a unit vector
-        assertEquals(1,s1.getNormal(p2).length(),0.0001,
+        assertEquals(1, s1.getNormal(p2).length(), 0.0001,
                 "the normal of a sphere does not return a unit vector");
-
-
 
 
     }
@@ -39,12 +37,13 @@ class SphereTest {
     private final Point p001 = new Point(0, 0, 1);
     private final Point p100 = new Point(1, 0, 0);
     private final Vector v001 = new Vector(0, 0, 1);
+
     /**
      * Test method for {@link geometries.Sphere#findIntersections(primitives.Ray)}.
      */
     @Test
     public void testFindIntersections() {
-        Sphere sphere = new Sphere( 1d,p100);
+        Sphere sphere = new Sphere(1d, p100);
         final Point pIntersect1 = new Point(0.0651530771650466, 0.355051025721682, 0);
         final Point pIntersect2 = new Point(1.53484692283495, 0.844948974278318, 0);
         final var exp = List.of(pIntersect1, pIntersect2);
@@ -52,24 +51,24 @@ class SphereTest {
         final Vector v110 = new Vector(1, 1, 0);
         final Point p01 = new Point(-1, 0, 0);
 
-        Point pInsideTheSphere = new Point(1.5,0.5,0);
-        Point pOutsideTheSphere = new Point(4,5,0);
-        Point pOnSphereInwards = new Point(2,0,0);
-        Point pOnSphereOutwards = new Point(2,0,0);
-        Point pTangentIntersects = new Point(2,-1,3);
-        Point pTangentNoIntersects = new Point(-1,0,0);
-        Point pTangentHeadOnSphere = new Point(1,1,0);
-        Point pOnCenter = new Point(1,0,0);
-        Point pOutsideThroughCenter = new Point(1,-2,0);
-        Point pOnSphereInwardsThroughCenter = new Point(1,-1,0);
-        Point pInsideThroughCenter = new Point(0.5,-0.5,0);
-        Point pOnSphereOutwardsThroughCenter = new Point(.29289321881,-0.70710678119,0);
-        Point pOutsideTroughCenterNoIntersections = new Point(-1,0,-2);
-        Point pRayOrthogonalToHead = new Point(3,0,0);
+        Point pInsideTheSphere = new Point(1.5, 0.5, 0);
+        Point pOutsideTheSphere = new Point(4, 5, 0);
+        Point pOnSphereInwards = new Point(2, 0, 0);
+        Point pOnSphereOutwards = new Point(2, 0, 0);
+        Point pTangentIntersects = new Point(2, -1, 3);
+        Point pTangentNoIntersects = new Point(-1, 0, 0);
+        Point pTangentHeadOnSphere = new Point(1, 1, 0);
+        Point pOnCenter = new Point(1, 0, 0);
+        Point pOutsideThroughCenter = new Point(1, -2, 0);
+        Point pOnSphereInwardsThroughCenter = new Point(1, -1, 0);
+        Point pInsideThroughCenter = new Point(0.5, -0.5, 0);
+        Point pOnSphereOutwardsThroughCenter = new Point(.29289321881, -0.70710678119, 0);
+        Point pOutsideTroughCenterNoIntersections = new Point(-1, 0, -2);
+        Point pRayOrthogonalToHead = new Point(3, 0, 0);
 
 
-        Vector vInsideTheSphere = new Vector(1,-1,0);
-        Vector vOutsideTheSphere = new Vector(0,8,15);
+        Vector vInsideTheSphere = new Vector(1, -1, 0);
+        Vector vOutsideTheSphere = new Vector(0, 8, 15);
         Vector vOnSphereInwards = new Vector(-1, 1, 0);
         Vector vOnSphereOutwards = new Vector(1, -1, 0);
         Vector vTangentIntersects = new Vector(0, 1, -3);
@@ -84,17 +83,12 @@ class SphereTest {
         Vector vRayOrthogonalToHead = new Vector(0, 45, -15);
 
 
-        var expInsideSphere = List.of(new Point(2,0,0));
-        var expOnSphereInwards = List.of(new Point(1,1,0));
-        var expOnCenter = List.of(new Point(4.0/3,2.0/3,2.0/3));
-        var expOutsideThroughCenter = List.of(new Point(1,-1,0), new Point(1,1,0));
-        var expOnSphereInwardsThroughCenter = List.of(new Point(1,1,0));
-        var expInsideThroughCenter = List.of(new Point(1.7071067811865475,0.7071067811865475,0));
-
-
-
-
-
+        var expInsideSphere = List.of(new Point(2, 0, 0));
+        var expOnSphereInwards = List.of(new Point(1, 1, 0));
+        var expOnCenter = List.of(new Point(4.0 / 3, 2.0 / 3, 2.0 / 3));
+        var expOutsideThroughCenter = List.of(new Point(1, -1, 0), new Point(1, 1, 0));
+        var expOnSphereInwardsThroughCenter = List.of(new Point(1, 1, 0));
+        var expInsideThroughCenter = List.of(new Point(1.7071067811865475, 0.7071067811865475, 0));
 
 
         // ============ Equivalence Partitions Tests ==============
@@ -103,8 +97,8 @@ class SphereTest {
                 "should have returned null when ray never crosses the sphere");
         // TC02: Ray starts before and crosses the sphere (2 points)
         final var result1 = sphere.findIntersections(new Ray(p01, v310))
-                                    .stream().sorted(Comparator.comparingDouble(p -> p.distance(p01)))
-                                    .toList();
+                .stream().sorted(Comparator.comparingDouble(p -> p.distance(p01)))
+                .toList();
         assertEquals(2, result1.size(), "Wrong number of points it crosses the sphere in two places");
         assertEquals(exp, result1, "returns the wrong points where the ray crosses the sphere in two points");
 
@@ -135,7 +129,6 @@ class SphereTest {
                 "should return null when ray starts on sphere and goes outward");
 
 
-
         // **** Group: Ray's line goes through the center
         // TC13: Ray starts before the sphere (2 points)
         final var result13 = sphere.findIntersections(new Ray(pOutsideThroughCenter, vOutsideThroughCenter))
@@ -148,7 +141,7 @@ class SphereTest {
 
         // TC14: Ray starts at sphere and goes inside (1 point)
         final var result14 = sphere.findIntersections(
-                new Ray(pOnSphereInwardsThroughCenter, vOnSphereInwardsThroughCenter))
+                        new Ray(pOnSphereInwardsThroughCenter, vOnSphereInwardsThroughCenter))
                 .stream().sorted(Comparator.comparingDouble(p -> p.distance(pOnSphereInwardsThroughCenter)))
                 .toList();
         assertEquals(1, result14.size(),
@@ -178,7 +171,7 @@ class SphereTest {
 
         // TC18: Ray starts after sphere (0 points)
         assertNull(sphere.findIntersections(new Ray(pOutsideTroughCenterNoIntersections,
-                vOutsideTroughCenterNoIntersections)),
+                        vOutsideTroughCenterNoIntersections)),
                 "should return null when ray is outside the sphere (tail crosses the center)");
 
 
