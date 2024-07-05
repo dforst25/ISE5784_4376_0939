@@ -280,12 +280,14 @@ public class Camera implements Cloneable {
      */
     public void printGrid(int interval, Color color) {
         /*nested loops that go through every pixel in grid and color it*/
-        for (int i = 0; i < imageWriter.getNx(); i++)
-            for (int j = 0; j < imageWriter.getNy(); j += interval)
+        int nx = imageWriter.getNx();
+        int ny = imageWriter.getNy();
+        for (int i = 0; i < nx; i++)
+            for (int j = 0; j < ny; j += interval)
                 imageWriter.writePixel(i, j, color);
 
-        for (int i = 0; i < imageWriter.getNx(); i += interval)
-            for (int j = 0; j < imageWriter.getNy(); j++)
+        for (int i = 0; i < nx; i += interval)
+            for (int j = 0; j < ny; j++)
                 imageWriter.writePixel(i, j, color);
     }
 

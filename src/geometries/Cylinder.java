@@ -29,32 +29,34 @@ public class Cylinder extends Tube {
      */
     @Override
     public Vector getNormal(Point p) {
-        Point axisHead = axis.getHead();
+        Point head = this.axis.getHead();
+        Vector dir = axis.getDir();
         //if the points is on the head of the point
-        if (isZero(p.distance(this.axis.getHead())))
-            return axis.getDir().scale(-1);
+
+        if (isZero(p.distance(head)))
+            return dir.scale(-1);
 
         //vector v is  p - p0
-        Vector v = p.subtract(this.axis.getHead());
+        Vector v = p.subtract(head);
 
-        double t = this.axis.getDir().dotProduct(v);
+        double t = dir.dotProduct(v);
 
         //the cases that the point is on the same plane as the base
-        if (isZero(t) && p.distance(axis.getHead()) <= this.radius)
-            return axis.getDir().scale(-1);
+        if (isZero(t) && p.distance(head) <= this.radius)
+            return dir.scale(-1);
         else if (isZero(t))
             throw new IllegalArgumentException("the point is not on the cylinder");
 
-        Point o = this.axis.getHead().add(this.axis.getDir().scale((t)));
+        Point o = head.add(dir.scale((t)));
 
-        if (o.distance(axis.getHead()) < 0 || o.distance(axis.getHead()) > this.height || p.distance(o) > this.radius)
+        if (o.distance(head) < 0 || o.distance(head) > this.height || p.distance(o) > this.radius)
             throw new IllegalArgumentException("the point is not on the cylinder");
 
-        else if (o.distance(axis.getHead()) != this.height && p.distance(o) < this.radius)
+        else if (o.distance(head) != this.height && p.distance(o) < this.radius)
             throw new IllegalArgumentException("the point is not on the cylinder");
 
-        else if (isZero(o.distance(axis.getHead()) - this.height))
-            return axis.getDir();
+        else if (isZero(o.distance(head) - this.height))
+            return dir;
         else
             return super.getNormal(p);
     }
