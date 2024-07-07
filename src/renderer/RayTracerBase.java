@@ -1,4 +1,3 @@
-
 package renderer;
 
 import primitives.Color;

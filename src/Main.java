@@ -1,9 +1,9 @@
+import primitives.Double3;
+import primitives.Point;
+import primitives.Vector;
+
 import static java.lang.System.out;
-
 import static primitives.Util.isZero;
-
-//import Vector.Vector;
-import primitives.*;
 
 /**
  * Test program for the 1st stage

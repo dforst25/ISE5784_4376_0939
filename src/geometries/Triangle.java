@@ -5,7 +5,7 @@ import primitives.Ray;
 import primitives.Vector;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 public class Triangle extends Polygon {
     /**

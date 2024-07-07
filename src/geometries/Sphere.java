@@ -1,6 +1,8 @@
 package geometries;
 
-import primitives.*;
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
 
 import java.util.Comparator;
 import java.util.List;
@@ -31,11 +33,7 @@ public class Sphere extends RadialGeometry {
      */
     @Override
     public Vector getNormal(Point p) {
-        //v is a help vector for calculating if the point is on the sphere and also for calculating the normal
-        Vector v = p.subtract(this.center);
-        if (v.length() != this.radius)
-            throw new IllegalArgumentException("The point isn't correct!");
-        return v.normalize();
+        return p.subtract(this.center).normalize();
     }
 
 

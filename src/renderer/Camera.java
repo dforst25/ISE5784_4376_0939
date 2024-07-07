@@ -1,6 +1,9 @@
 package renderer;
 
-import primitives.*;
+import primitives.Color;
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
 
 import java.util.MissingResourceException;
 
@@ -81,6 +84,95 @@ public class Camera implements Cloneable {
         } catch (CloneNotSupportedException e) {
             throw new AssertionError(); // Can't happen
         }
+    }
+
+    /**
+     * @param nX is the amount of pixels for the width of the view plane (how many columns)
+     * @param nY is the amount of pixels for the height of the view plane (how many rows)
+     * @param j  is the column of the pixel (of type int)
+     * @param i  is the row of the pixel (of type int)
+     * @return the ray going from the camera location to the point on the view plane
+     */
+    public Ray constructRay(int nX, int nY, int j, int i) {
+        //pc represents center of the view plain
+        Point pC = location.add(vTo.scale(distance));
+        //Ratio (pixel width and height)
+        double rY = height / nY;
+        double rX = width / nX;
+        //center of pixel[i,j]
+        double yI = -(i - (nY - 1) / 2.0) * rY;
+        double xJ = (j - (nX - 1) / 2.0) * rX;
+        Point pIJ;
+
+        pIJ = pC;
+        //checks if the Yi, Xi aren't 0 in order to not get vectors (0, 0, 0)
+        if (!isZero(yI))
+            pIJ = pIJ.add(vUp.scale(yI));
+        if (!isZero(xJ))
+            pIJ = pIJ.add(vRight.scale(xJ));
+
+
+        //vector of the direction from camera to the center of the given pixel
+        Vector vIJ = pIJ.subtract(location).normalize();
+        return new Ray(location, vIJ);
+    }
+
+    /**
+     *
+     */
+    public void renderImage() {
+
+        //goes through every pixel in view plane  and casts ray, meaning creates a ray for every pixel and sets the color
+        for (int row = 0; row < imageWriter.getNy(); row++) {
+            for (int column = 0; column < imageWriter.getNx(); column++) {
+                castRay(imageWriter.getNx(), imageWriter.getNy(), row, column);
+            }
+        }
+    }
+
+    /**
+     * Casts a ray from the camera through a pixel in the image, and writes the color of the intersection point to the
+     * corresponding pixel in the image.
+     *
+     * @param nX     the number of pixels in the x-direction of the image
+     * @param nY     the number of pixels in the y-direction of the image
+     * @param column the column number of the pixel to cast the ray through
+     * @param row    the row number of the pixel to cast the ray through
+     */
+    private void castRay(int nX, int nY, int row, int column) {
+
+        //create the ray
+        Ray ray = constructRay(nX, nY, row, column);
+        //calculates the color of pixel in ray using traceRay method from Class TraceRay
+        Color pixelColor = rayTracer.traceRay(ray);
+        //writes the color of the pixel to image
+        imageWriter.writePixel(row, column, pixelColor);
+    }
+
+    /**
+     * Prints a grid on the camera's image using the specified interval and color.
+     *
+     * @param interval the interval between the grid lines
+     * @param color    the color to use for the grid lines
+     */
+    public void printGrid(int interval, Color color) {
+        /*nested loops that go through every pixel in grid and color it*/
+        int nx = imageWriter.getNx();
+        int ny = imageWriter.getNy();
+        for (int i = 0; i < nx; i++)
+            for (int j = 0; j < ny; j += interval)
+                imageWriter.writePixel(i, j, color);
+
+        for (int i = 0; i < nx; i += interval)
+            for (int j = 0; j < ny; j++)
+                imageWriter.writePixel(i, j, color);
+    }
+
+    /**
+     * Writes the camera's image to a file using the imageWriter.
+     */
+    public void writeToImage() {
+        imageWriter.writeToImage();
     }
 
     /**
@@ -203,99 +295,8 @@ public class Camera implements Cloneable {
             camera.vRight = camera.vTo.crossProduct(camera.vUp).normalize();
 
 
-            return (Camera) camera.clone();
+            return camera.clone();
         }
-    }
-
-    /**
-     * @param nX is the amount of pixels for the width of the view plane (how many columns)
-     * @param nY is the amount of pixels for the height of the view plane (how many rows)
-     * @param j  is the column of the pixel (of type int)
-     * @param i  is the row of the pixel (of type int)
-     * @return the ray going from the camera location to the point on the view plane
-     */
-    public Ray constructRay(int nX, int nY, int j, int i) {
-        //pc represents center of the view plain
-        Point pC = location.add(vTo.scale(distance));
-        //Ratio (pixel width and height)
-        double rY = height / nY;
-        double rX = width / nX;
-        //center of pixel[i,j]
-        double yI = -(i - (nY - 1) / 2.0) * rY;
-        double xJ = (j - (nX - 1) / 2.0) * rX;
-        Point pIJ;
-
-        pIJ = pC;
-        //checks if the Yi, Xi aren't 0 in order to not get vectors (0, 0, 0)
-        if (!isZero(yI))
-            pIJ = pIJ.add(vUp.scale(yI));
-        if (!isZero(xJ))
-            pIJ = pIJ.add(vRight.scale(xJ));
-
-
-        //vector of the direction from camera to the center of the given pixel
-        Vector vIJ = pIJ.subtract(location).normalize();
-        return new Ray(location, vIJ);
-    }
-
-    /**
-     *
-     */
-    public void renderImage() {
-
-        //goes through every pixel in view plane  and casts ray, meaning creates a ray for every pixel and sets the color
-        for (int row = 0; row < imageWriter.getNy(); row++) {
-            for (int column = 0; column < imageWriter.getNx(); column++) {
-                castRay(imageWriter.getNx(), imageWriter.getNy(), row, column);
-            }
-        }
-    }
-
-
-    /**
-     * Casts a ray from the camera through a pixel in the image, and writes the color of the intersection point to the
-     * corresponding pixel in the image.
-     *
-     * @param nX     the number of pixels in the x-direction of the image
-     * @param nY     the number of pixels in the y-direction of the image
-     * @param column the column number of the pixel to cast the ray through
-     * @param row    the row number of the pixel to cast the ray through
-     */
-    private void castRay(int nX, int nY, int row, int column) {
-
-        //create the ray
-        Ray ray = constructRay(nX, nY, row, column);
-        //calculates the color of pixel in ray using traceRay method from Class TraceRay
-        Color pixelColor = rayTracer.traceRay(ray);
-        //writes the color of the pixel to image
-        imageWriter.writePixel(row, column, pixelColor);
-    }
-
-
-    /**
-     * Prints a grid on the camera's image using the specified interval and color.
-     *
-     * @param interval the interval between the grid lines
-     * @param color    the color to use for the grid lines
-     */
-    public void printGrid(int interval, Color color) {
-        /*nested loops that go through every pixel in grid and color it*/
-        int nx = imageWriter.getNx();
-        int ny = imageWriter.getNy();
-        for (int i = 0; i < nx; i++)
-            for (int j = 0; j < ny; j += interval)
-                imageWriter.writePixel(i, j, color);
-
-        for (int i = 0; i < nx; i += interval)
-            for (int j = 0; j < ny; j++)
-                imageWriter.writePixel(i, j, color);
-    }
-
-    /**
-     * Writes the camera's image to a file using the imageWriter.
-     */
-    public void writeToImage() {
-        imageWriter.writeToImage();
     }
 
 

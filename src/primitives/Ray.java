@@ -1,9 +1,9 @@
 package primitives;
 
+import geometries.Intersectable.GeoPoint;
+
 import java.util.Comparator;
 import java.util.List;
-
-import geometries.Intersectable.GeoPoint;
 
 import static primitives.Util.isZero;
 

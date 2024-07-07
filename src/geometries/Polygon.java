@@ -1,14 +1,13 @@
 package geometries;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static primitives.Util.isZero;
-
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
+
+import java.util.LinkedList;
+import java.util.List;
+
+import static primitives.Util.isZero;
 
 /**
  * Polygon class represents two-dimensional polygon in 3D Cartesian coordinate
@@ -96,47 +95,41 @@ public class Polygon extends Geometry {
     }
 
 
-
     @Override
     public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         List<Point> intersections = plane.findIntersections(ray);
-        if(intersections ==null)
+        if (intersections == null)
             return null;
 
-        List<Vector> sides= new LinkedList<>();
-        for(int i=0;i < size;++i)
+        List<Vector> sides = new LinkedList<>();
+        for (int i = 0; i < size; ++i)
             sides.add(vertices.get(i).subtract(ray.getHead()));
 
 
-        List<Vector> ni= new LinkedList<>();
-        for(int i=0;i < size-1;++i)
-            ni.add(sides.get(i).crossProduct(sides.get(i+1)).normalize());
-        ni.add(sides.get(size-1).crossProduct(sides.getFirst()).normalize());
+        List<Vector> ni = new LinkedList<>();
+        for (int i = 0; i < size - 1; ++i)
+            ni.add(sides.get(i).crossProduct(sides.get(i + 1)).normalize());
+        ni.add(sides.get(size - 1).crossProduct(sides.getFirst()).normalize());
 
-        Point P0 = ray.getHead();
-        Vector rDir =ray.getDir();
+        Vector rDir = ray.getDir();
 
-        boolean allAreGreater=true;
-        for(int i=0;i<size;++i)
-        {
-            if(rDir.dotProduct(ni.get(i))<=0)
-            {
+        boolean allAreGreater = true;
+        for (int i = 0; i < size; ++i) {
+            if (rDir.dotProduct(ni.get(i)) <= 0) {
                 allAreGreater = false;
                 break;
             }
         }
 
-        boolean allAreSmaller=true;
-        for(int i=0;i<size;++i)
-        {
-            if(rDir.dotProduct(ni.get(i))>=0)
-            {
+        boolean allAreSmaller = true;
+        for (int i = 0; i < size; ++i) {
+            if (rDir.dotProduct(ni.get(i)) >= 0) {
                 allAreSmaller = false;
                 break;
             }
         }
 
-        if(allAreGreater || allAreSmaller) {
+        if (allAreGreater || allAreSmaller) {
             return List.of(new GeoPoint(this, intersections.getFirst()));
         }
         return null;

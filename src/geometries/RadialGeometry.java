@@ -1,7 +1,5 @@
 package geometries;
 
-import primitives.*;
-
 public abstract class RadialGeometry extends Geometry {
 
     protected final double radius;

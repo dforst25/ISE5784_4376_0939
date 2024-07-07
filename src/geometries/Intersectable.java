@@ -1,6 +1,7 @@
 package geometries;
 
-import primitives.*;
+import primitives.Point;
+import primitives.Ray;
 
 import java.util.List;
 
@@ -15,6 +16,11 @@ public abstract class Intersectable {
         return geoList == null ? null : geoList.stream().map(gp -> gp.point).toList();
     }
 
+    public final List<GeoPoint> findGeoIntersections(Ray ray) {
+        return findGeoIntersectionsHelper(ray);
+    }
+
+    protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
 
     /**
      *
@@ -42,11 +48,5 @@ public abstract class Intersectable {
             return "geometry:\n " + geometry.toString() + "\npoint\n" + point.toString();
         }
     }
-
-    public final List<GeoPoint> findGeoIntersections(Ray ray) {
-        return findGeoIntersectionsHelper(ray);
-    }
-
-    protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
 
 }
