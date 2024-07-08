@@ -198,11 +198,11 @@ public class LightsTests {
    @Test
    public void testMultipleLightsSphere() {
       scene1.geometries.add(sphere.setMaterial(new Material().setkD(0.4).setkS(0.2).setnShininess(50)));
-      scene1.lights.add(new SpotLight(sphereLightColor, sphereLightPosition, sphereLightDirection)
+      scene1.lights.add(new SpotLight(new Color(300, 500, 0), sphereLightPosition, sphereLightDirection)
               .setkL(0.01).setkQ(0.00001));
-      scene1.lights.add(new SpotLight(sphereLightColor, new Point(-50,-40,15), sphereLightDirection)
+      scene1.lights.add(new SpotLight(new Color(200, 250, 100), new Point(-50,-10,15), sphereLightDirection)
               .setkL(0.01).setkQ(0.00001));
-      scene1.lights.add(new SpotLight(sphereLightColor,  new Point(-50,-30,5), sphereLightDirection)
+      scene1.lights.add(new SpotLight(new Color(200, 150, 0),  new Point(-50,-30,5), sphereLightDirection)
               .setkL(0.01).setkQ(0.00001));
       scene1.lights.add(new PointLight(sphereLightColor, new Point(-100,35,50))
               .setkL(0.0001).setkQ(0.002));

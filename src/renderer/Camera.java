@@ -121,11 +121,11 @@ public class Camera implements Cloneable {
      *
      */
     public void renderImage() {
-
-        //goes through every pixel in view plane  and casts ray, meaning creates a ray for every pixel and sets the color
-        for (int row = 0; row < imageWriter.getNy(); row++) {
-            for (int column = 0; column < imageWriter.getNx(); column++) {
-                castRay(imageWriter.getNx(), imageWriter.getNy(), row, column);
+        int Ny = imageWriter.getNy();
+        int Nx = imageWriter.getNx();
+        for (int y = 0; y < Ny; y++) {
+            for (int x = 0; x < Nx; x++) {
+                castRay(Nx, Ny, y, x);
             }
         }
     }
@@ -141,11 +141,8 @@ public class Camera implements Cloneable {
      */
     private void castRay(int nX, int nY, int row, int column) {
 
-        //create the ray
         Ray ray = constructRay(nX, nY, row, column);
-        //calculates the color of pixel in ray using traceRay method from Class TraceRay
         Color pixelColor = rayTracer.traceRay(ray);
-        //writes the color of the pixel to image
         imageWriter.writePixel(row, column, pixelColor);
     }
 
