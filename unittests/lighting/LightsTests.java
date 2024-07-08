@@ -195,5 +195,41 @@ public class LightsTests {
       buildCamera2.writeToImage();
    }
    */
-
+   @Test
+   public void testMultipleLightsSphere() {
+      scene1.geometries.add(sphere.setMaterial(new Material().setkD(0.4).setkS(0.2).setnShininess(50)));
+      scene1.lights.add(new SpotLight(sphereLightColor, sphereLightPosition, sphereLightDirection)
+              .setkL(0.01).setkQ(0.00001));
+      scene1.lights.add(new SpotLight(sphereLightColor, new Point(-50,-40,15), sphereLightDirection)
+              .setkL(0.01).setkQ(0.00001));
+      scene1.lights.add(new SpotLight(sphereLightColor,  new Point(-50,-30,5), sphereLightDirection)
+              .setkL(0.01).setkQ(0.00001));
+      scene1.lights.add(new PointLight(sphereLightColor, new Point(-100,35,50))
+              .setkL(0.0001).setkQ(0.002));
+      scene1.lights.add(new DirectionalLight(new Color(100, 200, 500), new Vector(0.1,1,0)));
+      Camera buildCamera1 = camera1.setImageWriter
+                      (new ImageWriter("lightSphereMulti", 2000, 2000))
+              .build();
+      buildCamera1.renderImage();
+      buildCamera1.writeToImage();
+   }
+   @Test
+   public void testMultipleLightsTriangle() {
+      scene1.geometries.add(triangle1.setMaterial(new Material().setkD(KD3).setkS(KS3).setnShininess(100)));
+      scene1.geometries.add(triangle2.setMaterial(new Material().setkD(KD3).setkS(KS3).setnShininess(100)));
+      scene1.lights.add(new SpotLight(sphereLightColor, sphereLightPosition, sphereLightDirection)
+              .setkL(0.01).setkQ(0.00001));
+      scene1.lights.add(new SpotLight(sphereLightColor,  new Point(-50,-30,5), sphereLightDirection)
+              .setkL(0.01).setkQ(0.00001));
+      scene1.lights.add(new PointLight(sphereLightColor, new Point(-100,35,50))
+              .setkL(0.0001).setkQ(0.002));
+      scene1.lights.add(new PointLight(sphereLightColor, new Point(-100,35,50))
+              .setkL(0.0001).setkQ(0.002));
+      scene1.lights.add(new DirectionalLight(new Color(100, 200, 500), new Vector(0.1,1,0)));
+      Camera buildCamera1 = camera1.setImageWriter
+                      (new ImageWriter("lightTriangleMulti", 2000, 2000))
+              .build();
+      buildCamera1.renderImage();
+      buildCamera1.writeToImage();
+   }
 }

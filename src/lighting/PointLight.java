@@ -7,7 +7,6 @@ import primitives.Vector;
 /**
  * This class represents a point light source in a scene.
  * A point light emits light uniformly in all directions from a specific position in space.
- *
  * @author David Forst and Moshe Goodman
  */
 public class PointLight extends Light implements LightSource {
