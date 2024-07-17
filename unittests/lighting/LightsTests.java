@@ -207,6 +207,7 @@ public class LightsTests {
       scene1.lights.add(new PointLight(sphereLightColor, new Point(-100,35,50))
               .setkL(0.0001).setkQ(0.002));
       scene1.lights.add(new DirectionalLight(new Color(100, 200, 500), new Vector(0.1,1,0)));
+      scene1.setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.15)));
       Camera buildCamera1 = camera1.setImageWriter
                       (new ImageWriter("lightSphereMulti", 2000, 2000))
               .build();

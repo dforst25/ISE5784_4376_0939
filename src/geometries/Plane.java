@@ -52,7 +52,7 @@ public class Plane extends Geometry {
 
 
     @Override
-    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         if (q.equals(ray.getHead()))
             return null;
         if (isZero(ray.getDir().dotProduct(normal))) {

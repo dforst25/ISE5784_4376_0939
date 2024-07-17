@@ -113,7 +113,7 @@ public class Camera implements Cloneable {
 
 
         //vector of the direction from camera to the center of the given pixel
-        Vector vIJ = pIJ.subtract(location).normalize();
+        Vector vIJ = pIJ.subtract(location);
         return new Ray(location, vIJ);
     }
 
@@ -140,7 +140,6 @@ public class Camera implements Cloneable {
      * @param row    the row number of the pixel to cast the ray through
      */
     private void castRay(int nX, int nY, int row, int column) {
-
         Ray ray = constructRay(nX, nY, row, column);
         Color pixelColor = rayTracer.traceRay(ray);
         imageWriter.writePixel(row, column, pixelColor);

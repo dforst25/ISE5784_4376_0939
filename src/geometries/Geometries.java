@@ -24,7 +24,7 @@ public class Geometries extends Intersectable {
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         List<GeoPoint> result = null;
         for (Intersectable geometry : geometries) {
-            List<GeoPoint> intersections = geometry.findGeoIntersectionsHelper(ray);
+            List<GeoPoint> intersections = geometry.findGeoIntersections(ray);
             if (intersections != null) {
                 if (result == null) {
                     result = new LinkedList<>();

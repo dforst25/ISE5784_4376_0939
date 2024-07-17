@@ -8,6 +8,12 @@ import scene.Scene;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CameraIntersectionIntegrationTest {
+    /**
+     *
+     * @param intersectable
+     * @param camera
+     * @return
+     */
     private static int getSizePlaneIntersections(Intersectable intersectable, Camera camera) {
         int sizeIntersections = 0;
         for (int i = 0; i < 3; i++)
