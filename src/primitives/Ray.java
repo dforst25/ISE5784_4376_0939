@@ -11,6 +11,8 @@ import static primitives.Util.isZero;
 public class Ray {
     private final Point head;
     private final Vector direction;
+    public static final double DELTA = 0.00001;
+
 
     /**
      * Constructor
@@ -22,6 +24,20 @@ public class Ray {
         this.head = head;
         this.direction = direction.normalize();
     }
+
+    /**
+     * Constructor for ray deflected by DELTA
+     *
+     * @param point origin
+     * @param dir   direction vector
+     * @param normal normal vector
+     */
+    public Ray(Point point, Vector dir, Vector normal) {
+        double res = dir.dotProduct(normal);
+        this.head = isZero(res) ? point : res > 0 ? point.add(normal.scale(DELTA)) : point.add(normal.scale(-DELTA));
+        this.direction = dir.normalize();
+    }
+
 
     //----------------------------------OverrideFunctions----------------------------------
     @Override
