@@ -1,12 +1,12 @@
 package renderer;
 
-import primitives.Color;
-import primitives.Point;
-import primitives.Ray;
-import primitives.Vector;
+import primitives.*;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.MissingResourceException;
 
+import static java.awt.Color.BLACK;
 import static primitives.Util.isZero;
 
 
@@ -93,6 +93,7 @@ public class Camera implements Cloneable {
      * @param i  is the row of the pixel (of type int)
      * @return the ray going from the camera location to the point on the view plane
      */
+    //Unnecessary just keeping it meanwhile until i change the tests in camera_test
     public Ray constructRay(int nX, int nY, int j, int i) {
         //pc represents center of the view plain
         Point pC = location.add(vTo.scale(distance));
@@ -118,14 +119,70 @@ public class Camera implements Cloneable {
     }
 
     /**
-     *
+     * @param nX is the amount of pixels for the width of the view plane (how many columns)
+     * @param nY is the amount of pixels for the height of the view plane (how many rows)
+     * @param j  is the column of the pixel (of type int)
+     * @param i  is the row of the pixel (of type int)
+     * @param superSampling is the amount of rays that go through each pixels (amount of rows and column)
+     * @return the ray going from the camera location to the point on the view plane
      */
+
+    public List<Ray> constructListRay(int nX, int nY, int j, int i, int superSampling) {
+        // Center of the view plane
+        Point pC = location.add(vTo.scale(distance));
+
+        // Pixel dimensions
+        double rY = height / nY;
+        double rX = width / nX;
+
+        // Center of pixel [i, j]
+        double yI = -(i - (nY - 1) / 2.0) * rY;
+        double xJ = (j - (nX - 1) / 2.0) * rX;
+        Point pIJ = pC;
+
+        // Check if yI, xJ are non-zero to avoid zero vectors
+        if (!isZero(yI)) {
+            pIJ = pIJ.add(vUp.scale(yI));
+        }
+        if (!isZero(xJ)) {
+            pIJ = pIJ.add(vRight.scale(xJ));
+        }
+
+        // Move to the top-left corner of the pixel
+        pIJ = pIJ.add(vUp.scale(-rY / 2));
+        pIJ = pIJ.add(vRight.scale(-rX / 2));
+
+        // Create rays for super-sampling
+        List<Ray> allRays = new LinkedList<>();
+        for (int k = 0; k <= superSampling; ++k) {
+            for (int l = 0; l <= superSampling; ++l) {
+                Point p = pIJ;
+                // Move to the correct sub-pixel location
+                if(k!=0)
+                    p = p.add(vUp.scale(rY * k / superSampling));
+                if(l!=0)
+                    p = p.add(vRight.scale(rX * l / superSampling));
+
+                // Create a new ray from the camera location to the sub-pixel point
+                allRays.add(new Ray(location, p.subtract(location)));
+            }
+        }
+        return allRays;
+    }
+
     public void renderImage() {
+        renderImage(1);
+    }
+
+    /**
+     * @param superSampling is the amount of rays that go through each pixels (amount of rows and column)
+     */
+    public void renderImage(int superSampling) {
         int Ny = imageWriter.getNy();
         int Nx = imageWriter.getNx();
         for (int y = 0; y < Ny; y++) {
             for (int x = 0; x < Nx; x++) {
-                castRay(Nx, Ny, y, x);
+                castRay(Nx, Ny, y, x,superSampling);
             }
         }
     }
@@ -138,11 +195,20 @@ public class Camera implements Cloneable {
      * @param nY     the number of pixels in the y-direction of the image
      * @param column the column number of the pixel to cast the ray through
      * @param row    the row number of the pixel to cast the ray through
+     * @param superSampling is the amount of rays that go through each pixels (amount of rows and column)
      */
-    private void castRay(int nX, int nY, int row, int column) {
-        Ray ray = constructRay(nX, nY, row, column);
-        Color pixelColor = rayTracer.traceRay(ray);
-        imageWriter.writePixel(row, column, pixelColor);
+    private void castRay(int nX, int nY, int row, int column,int superSampling) {
+
+
+        List<Ray> listRay =  constructListRay(nX, nY, row, column,superSampling);
+        Color sumRGB = new Color(BLACK);
+
+        for( Ray ray : listRay)
+        {
+            sumRGB = sumRGB.add(rayTracer.traceRay(ray).scale(1.0/(superSampling*superSampling)));
+        }
+        imageWriter.writePixel(row, column, sumRGB);
+
     }
 
     /**

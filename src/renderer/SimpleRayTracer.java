@@ -12,7 +12,7 @@ import static primitives.Util.isZero;
 
 public class SimpleRayTracer extends RayTracerBase {
 
-    private static final int MAX_CALC_COLOR_LEVEL = 10;
+    private static final int MAX_CALC_COLOR_LEVEL = 3;
 
     private static final double MIN_CALC_COLOR_K = 0.001;
 
@@ -79,13 +79,21 @@ public class SimpleRayTracer extends RayTracerBase {
                 .add(calcGlobalEffect(constructRefractedRay(geoPoint, v, n), level, k, material.kT));
     }
 
+    /**
+     *
+     * @param ray   The ray that intersected the geometry.
+     * @param level The recursion level, indicating the number of reflection and refraction bounces.
+     * @param k     The accumulated attenuation factor, representing the amount of light that has been absorbed.
+     * @param kx   the reflective or refractive coefficient
+     * @return  the calculated color
+     */
     private Color calcGlobalEffect(Ray ray, int level, Double3 k, Double3 kx) {
         Double3 kkx = k.product(kx);
         if (kkx.lowerThan(MIN_CALC_COLOR_K)) return Color.BLACK;
         GeoPoint geoPoint = findClosestIntersection(ray);
         if (geoPoint == null) return scene.background.scale(kx);
         return isZero(geoPoint.geometry.getNormal(geoPoint.point).dotProduct(ray.getDir())) ? Color.BLACK
-                : calcColor(geoPoint, ray, level - 1, kkx);
+                : calcColor(geoPoint, ray, level - 1, kkx).scale(kx);
     }
 
 
@@ -165,6 +173,15 @@ public class SimpleRayTracer extends RayTracerBase {
         return iL.scale(diffuseCoefficient);
     }
 
+    /**
+     *
+     * @param  light is the light source
+     * @param gp the point with the geometry that we are talkin' about
+     * @param l vector from point to light source
+     * @param n normal to the geometry in gp at the point of gp
+     * @return true if it is the closest point to the light source
+     * (if there are no intersections between it and the light source)
+     */
     private boolean unshaded(LightSource light, GeoPoint gp, Vector l, Vector n) {
         Vector lightDirection = l.scale(-1);
         Point point = gp.point;
