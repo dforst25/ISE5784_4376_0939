@@ -219,13 +219,18 @@ public class Camera implements Cloneable {
         Pixel.pixelDone();
 
     }
-
     private Color recPixelColor( int TL,int TR , int BL, int BR,List<Ray> listRay)
     {
         Color TLColor = rayTracer.traceRay(listRay.get(TL));
         Color TRColor = rayTracer.traceRay(listRay.get(TR));
         Color BLColor = rayTracer.traceRay(listRay.get(BL));
         Color BRColor = rayTracer.traceRay(listRay.get(BR));
+        return recPixelColor(  TL, TR ,  BL,  BR, TLColor, TRColor, BLColor, BRColor, listRay);
+    }
+
+    private Color recPixelColor( int TL,int TR , int BL, int BR,Color TLColor,Color TRColor,Color BLColor,Color BRColor,List<Ray> listRay)
+    {
+
         if (  TL + 1 >= TR  || TLColor.equals( TRColor)  && TLColor.equals(BLColor)   && TLColor.equals( BRColor) )
         {
             return TLColor.scale(0.25).add(TRColor.scale(0.25)).add(BRColor.scale(0.25)).add(BLColor.scale(0.25));
@@ -236,11 +241,16 @@ public class Camera implements Cloneable {
         int midR = (TR + BR) / 2;
         int midB = (BL + BR) / 2;
 
+        Color midTColor = rayTracer.traceRay(listRay.get(midT));
+        Color midLColor = rayTracer.traceRay(listRay.get(midL));
+        Color midColor =  rayTracer.traceRay(listRay.get(mid));
+        Color midRColor = rayTracer.traceRay(listRay.get(midR));
+        Color midBColor = rayTracer.traceRay(listRay.get(midB));
 
-        TLColor = recPixelColor(TL,midT,midL,mid,listRay);
-        TRColor = recPixelColor(midT,TR,mid,midR,listRay);
-        BLColor = recPixelColor(midL,mid,BL,midB,listRay);
-        BRColor = recPixelColor(mid,midR,midB,BR,listRay);
+        TLColor = recPixelColor(TL,midT,midL,mid,TLColor,midTColor,midLColor,midColor,listRay);
+        TRColor = recPixelColor( midT,TR,mid,midR,midTColor,TRColor,midColor,midRColor,listRay);
+        BLColor = recPixelColor(midL,mid,BL,midB, midLColor,midColor,BLColor,midBColor,listRay);
+        BRColor = recPixelColor(mid,midR,midB,BR, midColor,midRColor,midBColor,BRColor,listRay);
         return TLColor.scale(0.25).add(TRColor.scale(0.25)).add(BRColor.scale(0.25)).add(BLColor.scale(0.25));
 
     }
