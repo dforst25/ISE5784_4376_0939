@@ -126,7 +126,11 @@ public class Color {
         if (k < 1) throw new IllegalArgumentException("Can't scale a color by a by a number lower than 1");
         return new Color(rgb.reduce(k));
     }
-
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        return (o instanceof Color color) && this.rgb.equals(color.rgb);
+    }
     @Override
     public String toString() {
         return "rgb:" + rgb;

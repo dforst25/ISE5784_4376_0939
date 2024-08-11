@@ -122,9 +122,9 @@ public class LightsTests {
       scene1.lights.add(new SpotLight(sphereLightColor, sphereLightPosition, sphereLightDirection)
          .setkL(0.001).setkQ(0.0001));
 
-      Camera buildCamera1 = camera1.setImageWriter(new ImageWriter("lightSphereSpot", 500, 500))
+      Camera buildCamera1 = camera1.setImageWriter(new ImageWriter("lightSphereSpot17", 1000, 1000))
          .build();
-      buildCamera1.renderImage();
+      buildCamera1.renderImage(17);
       buildCamera1.writeToImage();
    }
 

@@ -78,6 +78,7 @@ public class Material {
         return this;
 
     }
+
     /**
      * Sets the transmission coefficient of the material.
      *

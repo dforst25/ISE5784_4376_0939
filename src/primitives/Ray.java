@@ -9,9 +9,9 @@ import static primitives.Util.isZero;
 
 
 public class Ray {
+    public static final double DELTA = 0.00001;
     private final Point head;
     private final Vector direction;
-    public static final double DELTA = 0.00001;
 
 
     /**
@@ -28,8 +28,8 @@ public class Ray {
     /**
      * Constructor for ray deflected by DELTA
      *
-     * @param point origin
-     * @param dir   direction vector
+     * @param point  origin
+     * @param dir    direction vector
      * @param normal normal vector
      */
     public Ray(Point point, Vector dir, Vector normal) {
